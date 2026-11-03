@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- 标题画面通关小标记（demo_trio「同一场雨」）：一滴雨，里面一朵铃兰铃 + 一点镜片反光。只在 .scr-title[data-clear-demo-trio="1"] 时出现。 -->
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fb3e8"/><stop offset=".55" stop-color="#fbe3b4"/><stop offset="1" stop-color="#c97a8a"/></linearGradient></defs>
+  <path d="M24 4 C30 14 37 21 37 29 A13 13 0 0 1 11 29 C11 21 18 14 24 4z" fill="#141a33" fill-opacity=".55" stroke="url(#g)" stroke-width="1.8"/>
+  <path d="M24 24 q-5.5 0 -5.5 6.5 q2.7 -2 5.5 0 q2.8 -2 5.5 0 q0 -6.5 -5.5 -6.5z" fill="#fbf5ec"/>
+  <path d="M24 24 v-5 q2 -3 6 -3.5" stroke="#8fa36a" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  <path d="M16 23 l3 -4" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-opacity=".85"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 40" width="360" height="40">
+  <!-- demo_trio 结局卡饰线（结衣）：左眼镜 — 中间三滴雨 — 右铃兰。替换 .gal-titlecard .band::before 的 ornament-divider（只用于 .is-hidden-ending）。 -->
+  <g stroke="#d9bf8a" stroke-width="1.2" fill="none" stroke-opacity=".9">
+    <path d="M60 20 H150 M210 20 H300"/>
+    <path d="M8 20 H22 M338 20 H352" stroke-opacity=".5"/>
+  </g>
+  <g stroke="#e8ecff" stroke-width="1.6" fill="#8fb3e8" fill-opacity=".15">
+    <rect x="24" y="13" width="14" height="11" rx="4"/><rect x="44" y="13" width="14" height="11" rx="4"/>
+  </g>
+  <path d="M38 17 q3 -2 6 0" stroke="#e8ecff" stroke-width="1.6" fill="none"/>
+  <g fill="#cfe0ff">
+    <path d="M166 12 q2.6 4.3 2.6 6.4 a2.6 2.6 0 0 1 -5.2 0 q0 -2.1 2.6 -6.4z"/>
+    <path d="M180 8 q3 5 3 7.5 a3 3 0 0 1 -6 0 q0 -2.5 3 -7.5z" fill="#fbe3b4"/>
+    <path d="M194 12 q2.6 4.3 2.6 6.4 a2.6 2.6 0 0 1 -5.2 0 q0 -2.1 2.6 -6.4z"/>
+  </g>
+  <path d="M302 26 C312 16 324 13 336 14" stroke="#8fa36a" stroke-width="1.4" fill="none"/>
+  <g fill="#fbf5ec">
+    <path d="M310 20 q-3 0 -3 4 q1.5 -1.2 3 0 q1.5 -1.2 3 0 q0 -4 -3 -4z"/>
+    <path d="M320 16.5 q-3 0 -3 4 q1.5 -1.2 3 0 q1.5 -1.2 3 0 q0 -4 -3 -4z"/>
+    <path d="M330 15 q-3 0 -3 4 q1.5 -1.2 3 0 q1.5 -1.2 3 0 q0 -4 -3 -4z"/>
+  </g>
+  <circle cx="338" cy="14.5" r="1.6" fill="#c97a8a"/>
+</svg>
