@@ -261,17 +261,26 @@
 .gal-clickwait.is-page{ background-image:url("svg/click-wait-page.svg"); animation:gal-wait-page 1200ms var(--ease-soft) infinite; }
 
 /* 选项 */
-.gal-choices{ position:absolute; left:0; right:0; top:96px; bottom:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; }
+/* CHO-01/08 修正（11/04 03:05 JST）：原来 height:72px + line-height:72px 写死、可用区只有 324px（top96/bottom300）。
+   4 个选项要 4×72+3×16=336px，flex 把按钮压成 69px，可内容还是 72px 行高（+按钮默认内边距 = 79px），文字溢出底板；
+   长选项换行后变成 2×72=144px 行高，整段溢出、◆ 压字。现在改为：可用区 72–432（360px，对话框上沿 448 之上留 16px），
+   按钮盒 = 热区 min-height 88（M3 ×0.5 = 44 CSS px），底板图只画中间 72px（上下各留 8px 透明 = 原来的 16px 间距），
+   行高 1.3、最多两行仍是 88px，不压缩（flex-shrink:0）；4 个选项 4×88=352 ≤ 360，相邻热区相接不重叠，不再用溢出的 ::after。 */
+.gal-choices{ position:absolute; left:0; right:0; top:72px; bottom:288px; display:flex; flex-direction:column; align-items:center; justify-content:safe center; gap:0; }
 .gal-choice{
-  position:relative; width:720px; height:72px; border:none; cursor:pointer;
-  background:url("svg/btn-choice.svg") center/100% 100% no-repeat;
-  font:500 var(--fs-ui)/72px var(--font-serif); letter-spacing:.12em; color:var(--c-cream); text-shadow:var(--text-shadow);
+  position:relative; box-sizing:border-box; flex:0 0 auto; width:720px; min-height:var(--hit-min); height:auto; margin:0;
+  padding:15px 84px; border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  background:url("svg/btn-choice.svg") center/100% calc(100% - 16px) no-repeat;
+  font:500 var(--fs-ui)/1.3 var(--font-serif); letter-spacing:.12em; color:var(--c-cream); text-shadow:var(--text-shadow);
+  white-space:normal; overflow-wrap:anywhere; word-break:normal; text-wrap:balance;
   transition:transform var(--d-hover) var(--ease-out), filter var(--d-hover), color var(--d-hover);
   animation:gal-choice-in 360ms var(--ease-out) both;
 }
 .gal-choice:nth-child(2){ animation-delay:60ms; } .gal-choice:nth-child(3){ animation-delay:120ms; } .gal-choice:nth-child(4){ animation-delay:180ms; }
-.gal-choice::after{ content:""; position:absolute; left:0; right:0; top:50%; height:var(--hit-min); transform:translateY(-50%); }
-.gal-choice::before{ content:""; position:absolute; inset:0; border-radius:4px; opacity:0; transition:opacity var(--d-hover);
+/* 热区就是按钮盒本身（≥88 逻辑 px），不需要 ::after 扩展 */
+.gal-choice:has(.note){ padding-right:136px; } /* 右侧「已选过」等小注不压字 */
+.gal-choice::before{ content:""; position:absolute; inset:8px 0; border-radius:4px; opacity:0; transition:opacity var(--d-hover);
   background:radial-gradient(60% 120% at 50% 50%,rgba(240,168,94,.38),transparent 70%); }
 .gal-choice .mark{ position:absolute; left:52px; top:50%; transform:translateY(-50%); font-size:16px; color:var(--c-gold); }
 .gal-choice .note{ position:absolute; right:48px; top:50%; transform:translateY(-50%); font:400 var(--fs-tiny)/1 var(--font-sans); letter-spacing:.05em; color:var(--c-mute); display:inline-flex; align-items:center; gap:6px; }
