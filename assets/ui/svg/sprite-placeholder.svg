@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 680" width="400" height="680">
+  <!-- 立绘占位剪影（抽象，半身以上；正式立绘到位后替换）。颜色在 demo 中由角色强调色生成。 -->
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9a6b2"/><stop offset="1" stop-color="#5a2e3f"/></linearGradient></defs>
+  <path d="M200 40c-62 0-98 48-96 112 2 50 10 92-12 140 40 10 70 6 108 6s68 4 108-6c-22-48-14-90-12-140 2-64-34-112-96-112z" fill="url(#g)" opacity=".9"/>
+  <ellipse cx="200" cy="170" rx="70" ry="86" fill="url(#g)"/>
+  <path d="M170 248h60l6 44c64 10 112 40 132 96 14 40 20 160 22 292H10c2-132 8-252 22-292 20-56 68-86 132-96z" fill="url(#g)" opacity=".95"/>
+</svg>

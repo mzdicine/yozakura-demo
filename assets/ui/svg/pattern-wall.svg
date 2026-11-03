@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- 真琴未解锁底纹：薄墙的板缝 + 雨线 -->
+  <path d="M0 0v48M24 0v48" stroke="#8fb3e8" stroke-opacity=".12"/>
+  <path d="M8 6l-3 9M36 20l-3 9M16 32l-3 9M44 2l-3 9" stroke="#8fb3e8" stroke-opacity=".2" stroke-linecap="round"/>
+</svg>

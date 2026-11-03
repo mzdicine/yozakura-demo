@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" width="320" height="64" preserveAspectRatio="none">
+  <!-- 标题菜单按钮底板：两端菱形 + 中间渐隐金线 -->
+  <defs>
+    <linearGradient id="band" x1="0" x2="1"><stop offset="0" stop-color="#141a33" stop-opacity="0"/><stop offset=".2" stop-color="#1f2547" stop-opacity=".78"/><stop offset=".8" stop-color="#1f2547" stop-opacity=".78"/><stop offset="1" stop-color="#141a33" stop-opacity="0"/></linearGradient>
+    <linearGradient id="line" x1="0" x2="1"><stop offset="0" stop-color="#d9bf8a" stop-opacity="0"/><stop offset=".5" stop-color="#ecc98a"/><stop offset="1" stop-color="#d9bf8a" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect x="0" y="8" width="320" height="48" fill="url(#band)"/>
+  <rect x="10" y="8" width="300" height="1" fill="url(#line)"/>
+  <rect x="10" y="55" width="300" height="1" fill="url(#line)"/>
+</svg>

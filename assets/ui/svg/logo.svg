@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 640 300" width="640" height="300">
+  <!-- 《夜樱与邻人》标题字标（原创手写 SVG · UI/演出 结衣）。母题：夜樱枝 + 一扇亮着的窗。正式 Logo 定稿前使用。 -->
+  <defs>
+    <radialGradient id="pet" cx=".5" cy=".9" r="1"><stop offset="0" stop-color="#f6c9d4"/><stop offset=".6" stop-color="#fbe6ec"/><stop offset="1" stop-color="#ffffff"/></radialGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#fbe6ec"/><stop offset="1" stop-color="#f2b8c6"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9bf8a" stop-opacity="0"/><stop offset=".2" stop-color="#fbe3b4"/><stop offset=".8" stop-color="#fbe3b4"/><stop offset="1" stop-color="#d9bf8a" stop-opacity="0"/></linearGradient>
+    <radialGradient id="lamp" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#fff1c8"/><stop offset=".6" stop-color="#f2b46a"/><stop offset="1" stop-color="#c47a3a"/></radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="sh" x="-10%" y="-20%" width="120%" height="150%"><feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#0b0e20" flood-opacity=".85"/></filter>
+    <g id="fl"><g fill="url(#pet)" stroke="#d97a98" stroke-width=".6" stroke-opacity=".5"><path d="M0 0C-7.5-5-8.5-15-3.2-20L0-16.8 3.2-20C8.5-15 7.5-5 0 0Z" transform="rotate(0)"/><path d="M0 0C-7.5-5-8.5-15-3.2-20L0-16.8 3.2-20C8.5-15 7.5-5 0 0Z" transform="rotate(72)"/><path d="M0 0C-7.5-5-8.5-15-3.2-20L0-16.8 3.2-20C8.5-15 7.5-5 0 0Z" transform="rotate(144)"/><path d="M0 0C-7.5-5-8.5-15-3.2-20L0-16.8 3.2-20C8.5-15 7.5-5 0 0Z" transform="rotate(216)"/><path d="M0 0C-7.5-5-8.5-15-3.2-20L0-16.8 3.2-20C8.5-15 7.5-5 0 0Z" transform="rotate(288)"/></g><circle r="3.2" fill="#f7d6a8"/><g stroke="#e7929f" stroke-width=".8"><path d="M0 0L1.9 -5.7"/><path d="M0 0L4.9 -3.5"/><path d="M0 0L6.0 -0.0"/><path d="M0 0L4.9 3.5"/><path d="M0 0L1.9 5.7"/><path d="M0 0L-1.9 5.7"/><path d="M0 0L-4.9 3.5"/><path d="M0 0L-6.0 0.0"/><path d="M0 0L-4.9 -3.5"/><path d="M0 0L-1.9 -5.7"/></g></g>
+  </defs>
+  <!-- 樱枝 -->
+  <g fill="none" stroke="#5b4258" stroke-linecap="round">
+    <path d="M-10 128C40 96 70 70 130 54S230 34 280 52" stroke-width="7"/>
+    <path d="M90 66C100 40 120 30 150 22" stroke-width="4"/>
+    <path d="M190 44C210 60 230 66 262 70" stroke-width="3.5"/>
+    <path d="M40 106C36 124 42 136 56 146" stroke-width="3"/>
+  </g>
+  <g><use href="#fl" transform="translate(60.8 78.0) rotate(11) scale(0.75)" opacity="0.77"/><use href="#fl" transform="translate(65.4 85.0) rotate(7) scale(0.93)" opacity="0.81"/><circle cx="62.5" cy="82.1" r="4.9" fill="#f2b8c6" opacity=".7"/><circle cx="57.1" cy="89.1" r="2.8" fill="#f2b8c6" opacity=".7"/><circle cx="77.6" cy="59.6" r="3.4" fill="#f2b8c6" opacity=".7"/><use href="#fl" transform="translate(109.1 48.6) rotate(47) scale(0.89)" opacity="0.77"/><use href="#fl" transform="translate(123.0 50.2) rotate(22) scale(0.77)" opacity="0.81"/><circle cx="95.8" cy="62.8" r="5.0" fill="#f2b8c6" opacity=".7"/><circle cx="120.6" cy="35.4" r="5.2" fill="#f2b8c6" opacity=".7"/><use href="#fl" transform="translate(169.6 55.2) rotate(24) scale(0.91)" opacity="0.85"/><use href="#fl" transform="translate(164.6 59.5) rotate(39) scale(0.58)" opacity="0.81"/><use href="#fl" transform="translate(173.9 46.9) rotate(35) scale(0.74)" opacity="0.88"/><use href="#fl" transform="translate(166.9 69.2) rotate(25) scale(0.57)" opacity="0.77"/><circle cx="167.3" cy="59.5" r="3.2" fill="#f2b8c6" opacity=".7"/><use href="#fl" transform="translate(51.6 111.5) rotate(41) scale(0.80)" opacity="0.78"/><use href="#fl" transform="translate(19.5 108.2) rotate(30) scale(0.91)" opacity="0.78"/><use href="#fl" transform="translate(60.3 110.5) rotate(45) scale(0.51)" opacity="0.92"/><circle cx="52.7" cy="137.9" r="2.7" fill="#f2b8c6" opacity=".7"/><circle cx="28.6" cy="138.1" r="4.8" fill="#f2b8c6" opacity=".7"/><use href="#fl" transform="translate(224.9 53.3) rotate(9) scale(0.86)" opacity="0.82"/><use href="#fl" transform="translate(193.6 38.0) rotate(48) scale(0.57)" opacity="0.90"/><use href="#fl" transform="translate(192.0 42.6) rotate(58) scale(0.69)" opacity="0.79"/><circle cx="234.8" cy="43.1" r="3.9" fill="#f2b8c6" opacity=".7"/><circle cx="192.2" cy="58.0" r="3.0" fill="#f2b8c6" opacity=".7"/><use href="#fl" transform="translate(229.2 46.1) rotate(19) scale(0.86)" opacity="0.90"/><use href="#fl" transform="translate(252.2 61.0) rotate(4) scale(0.67)" opacity="0.78"/><circle cx="238.8" cy="79.5" r="4.5" fill="#f2b8c6" opacity=".7"/><circle cx="233.8" cy="45.1" r="3.9" fill="#f2b8c6" opacity=".7"/><circle cx="249.6" cy="45.9" r="3.9" fill="#f2b8c6" opacity=".7"/></g>
+  <!-- 字标 -->
+  <g filter="url(#sh)" font-family="'Noto Serif SC','Noto Serif CJK SC','Source Han Serif SC','Songti SC','STSong',serif" font-weight="900" fill="url(#word)" stroke="#141a33" stroke-width="3" paint-order="stroke">
+    <text x="78" y="196" font-size="104" letter-spacing="4">夜樱</text>
+    <text x="300" y="186" font-size="46" fill="#f2b8c6" font-weight="700">与</text>
+    <text x="356" y="196" font-size="104" letter-spacing="4">邻人</text>
+  </g>
+  <!-- 书名号（细金） -->
+  <g fill="none" stroke="#d9bf8a" stroke-width="2.2" stroke-linejoin="round" opacity=".9">
+    <path d="M70 108L44 152 70 196M60 108L34 152 60 196"/>
+    <path d="M582 108L608 152 582 196M592 108L618 152 592 196"/>
+  </g>
+  <!-- 小亮窗：嵌在「邻人」右上 -->
+  <g transform="translate(560 64)" filter="url(#glow)">
+    <rect x="-17" y="-20" width="34" height="40" rx="2" fill="url(#lamp)"/>
+    <path d="M0-20V20M-17 0H17" stroke="#141a33" stroke-width="2.4"/>
+    <rect x="-17" y="-20" width="34" height="40" rx="2" fill="none" stroke="#d9bf8a" stroke-width="1.6"/>
+    <path d="M-17-20h12v40h-12z" fill="#b8a2d8" opacity=".35"/>
+  </g>
+  <path d="M100 222H560" stroke="url(#gold)" stroke-width="1.4"/>
+  <path d="M330 216l6 6-6 6-6-6z" fill="#f2b8c6"/>
+  <text x="330" y="258" text-anchor="middle" font-family="'Noto Serif','Georgia','Times New Roman',serif" font-style="italic" font-size="21" letter-spacing="8" fill="#e8ecff" opacity=".9">Yozakura &amp; the Neighbor</text>
+  <!-- 飘落单瓣 -->
+  <g fill="#f2b8c6" opacity=".85">
+    <path d="M0 0C-7.5-5-8.5-15-3.2-20L0-16.8 3.2-20C8.5-15 7.5-5 0 0Z" transform="translate(600 238) rotate(140) scale(.7)"/>
+    <path d="M0 0C-7.5-5-8.5-15-3.2-20L0-16.8 3.2-20C8.5-15 7.5-5 0 0Z" transform="translate(30 236) rotate(-40) scale(.55)"/>
+    <path d="M0 0C-7.5-5-8.5-15-3.2-20L0-16.8 3.2-20C8.5-15 7.5-5 0 0Z" transform="translate(470 30) rotate(70) scale(.5)"/>
+  </g>
+</svg>

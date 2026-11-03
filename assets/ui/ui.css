@@ -1,0 +1,973 @@
+/* =====================================================================
+   《夜樱与邻人》UI 样式表 v1 —— UI/演出：结衣
+   规范文档：docs/UI_SPEC.md（所有数值以 1280x720 逻辑像素为准）
+   结构：0 变量 / 1 舞台与缩放 / 2 基础控件 / 3 标题 / 4 ADV（对话框、名字栏、
+         选项、快捷菜单） / 5 系统界面（存读档、Backlog、设置、CG 鉴赏、回想、
+         系统菜单+好感度、确认框、Toast） / 6 H 场景柔和模式 & NVL / 7 演出 FX /
+         8 请横屏 / 9 辅助
+   ===================================================================== */
+@import url("ui-icons.css");
+
+/* ---------- 0. 设计变量 ---------- */
+:root{
+  /* 舞台 */
+  --stage-w:1280px; --stage-h:720px; --stage-scale:1;
+  --hit-min:88px;                 /* 最小可点区域（逻辑 px）。88 × 0.5(360 高的手机) = 44 CSS px */
+
+  /* 主调色板：夜樱 × 邻人（夜蓝底 + 樱粉 + 窗灯金） */
+  --c-night:#141a33;   /* 夜蓝（最深底色） */
+  --c-dusk:#1f2547;    /* 夜空靛（面板底） */
+  --c-plum:#2c3466;    /* 靛紫（次级面板/悬停底） */
+  --c-wine:#3a2f5c;    /* 暗藤（描边阴影/徽章底） */
+  --c-sakura:#f2b8c6;  /* 夜樱粉（主装饰色、选中、花瓣） */
+  --c-sakura-deep:#d97a98; /* 深樱（樱粉上的强调/心跳） */
+  --c-rose:#f2b8c6;    /* 兼容别名 = 樱粉 */
+  --c-amber:#f2b46a;   /* 窗灯琥珀（焦点/按下/开启态） */
+  --c-gold:#d9bf8a;    /* 灯纸金（细线、装饰） */
+  --c-gold-hi:#fbe3b4; /* 亮金（悬停文字/高光） */
+  --c-moon:#e8ecff;    /* 月光（冷高光） */
+  --c-cream:#fbf5ec;   /* 奶油白（正文） */
+  --c-mute:#9a9cb8;    /* 雾灰蓝（次要文字/禁用） */
+  --c-text-read:#b9c2ef; /* 已读文字（月光淡蓝） */
+  --c-danger:#e0727a;
+
+  /* 角色强调色（与 docs/CHARACTERS.md §0.1 / characters.txt 的 color 一致；引擎也可直接写 style="--accent:<color>"） */
+  --c-ayaka:#b8a2d8;   /* 白石绫香：藤紫 */
+  --c-makoto:#8fb3e8;  /* 椎名真琴：灰蓝 */
+  --c-yukino:#c97a8a;  /* 桐谷雪乃：酒红 */
+  --c-bucho:#9aa0a8;   /* 白石部长：钢灰（配角） */
+  --c-hero:#a8c8a0;    /* 男主：浅松绿 */
+  --c-narr:#d9bf8a;
+  --accent:var(--c-amber);
+
+  /* 字体 */
+  --font-serif:"Noto Serif SC","Noto Serif CJK SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
+  --font-sans:"Noto Sans SC","Noto Sans CJK SC","Source Han Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --font-latin:"Noto Serif","Georgia","Times New Roman",serif;
+  --fs-dialog:28px; --lh-dialog:1.6;
+  --fs-name:26px; --fs-title-btn:28px; --fs-ui:22px; --fs-small:18px; --fs-tiny:15px; --fs-h1:40px;
+  --text-shadow:0 0 2px rgba(10,12,28,.95),0 0 4px rgba(10,12,28,.8),0 2px 6px rgba(0,0,0,.55);
+  --text-shadow-soft:0 0 6px rgba(10,12,28,.9),0 0 14px rgba(10,12,28,.6);
+
+  /* 窗口 */
+  --window-alpha:.80;  /* 设置「窗口透明度」直接改这个 0.2~1 */
+  --radius:12px;
+  --line:1px solid rgba(217,191,138,.55);
+
+  /* 时间与缓动（演出规范） */
+  --ease-std:cubic-bezier(.4,0,.2,1);
+  --ease-out:cubic-bezier(.22,.61,.36,1);
+  --ease-in:cubic-bezier(.55,.06,.68,.19);
+  --ease-soft:cubic-bezier(.45,.05,.35,1);
+  --ease-back:cubic-bezier(.34,1.4,.64,1);
+  --d-press:80ms; --d-hover:150ms; --d-ui:240ms;
+  --d-sprite:300ms; --d-expr:200ms; --d-move:500ms;  /* @chara/@hide 默认 time=0.3 */
+  --d-bg:800ms; --d-fade:1000ms; --d-black:1000ms; --d-hold:1000ms; --d-white:600ms; --d-flash:300ms; --d-wipe:900ms;  /* 对应 FORMAT.md §4.2 trans 默认 time */
+  --d-cg:800ms; --d-cgdiff:300ms; --d-title-card:3200ms;  /* @cg 默认 crossfade 0.8；同 id 差分 0.3 */
+  --tender:1;          /* H 场景柔和模式下 JS 设为 1.6，所有 calc 时长放慢 */
+  --fx-dur:600ms;      /* 单次效果时长，JS 写在元素上覆盖 */
+}
+
+/* ---------- 1. 舞台与缩放（16:9 黑边） ---------- */
+.gal-viewport{
+  position:fixed; inset:0; background:#000; overflow:hidden;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  touch-action:manipulation; -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent;
+}
+.gal-stage{
+  position:absolute; left:50%; top:50%; width:var(--stage-w); height:var(--stage-h);
+  transform:translate(-50%,-50%) scale(var(--stage-scale)); transform-origin:50% 50%;
+  overflow:hidden; background:var(--c-night); color:var(--c-cream);
+  font-family:var(--font-sans); font-size:var(--fs-ui); line-height:1.5;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+.gal-stage *, .gal-stage *::before, .gal-stage *::after{ box-sizing:border-box; }
+.gal-layer{ position:absolute; inset:0; }
+.layer-bg{ z-index:0; } .layer-sprite{ z-index:10; } .layer-cg{ z-index:20; }
+.layer-fx-under{ z-index:25; } .layer-text{ z-index:30; } .layer-ui{ z-index:40; }
+.layer-screen{ z-index:50; } .layer-modal{ z-index:60; } .layer-fx{ z-index:70; pointer-events:none; }
+.layer-screen:empty,.layer-modal:empty{ pointer-events:none; } /* 空层不拦截点击 */
+.layer-ui{ pointer-events:none; } .layer-ui > :not(.gal-modebadge):not(.gal-toast){ pointer-events:auto; } /* 徽章/提示条不挡点击 */
+.gal-bg{ position:absolute; inset:0; background-size:cover; background-position:center; }
+.gal-shake{ position:absolute; inset:0; } /* 震屏容器：包住 bg/sprite/cg 层（@shake target=screen）；target=window 时对 .gal-textbox 播放 */
+
+/* ---------- 2. 基础控件 ---------- */
+.gal-btn{
+  position:relative; display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  min-width:160px; height:60px; padding:0 28px; border-radius:30px;
+  font:500 var(--fs-ui)/1 var(--font-serif); letter-spacing:.12em; color:var(--c-cream);
+  background:linear-gradient(180deg,rgba(44,48,92,.92),rgba(26,30,60,.92));
+  border:var(--line); box-shadow:0 2px 10px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,240,210,.12);
+  cursor:pointer; transition:all var(--d-hover) var(--ease-out); text-shadow:var(--text-shadow);
+}
+.gal-btn::after{ content:""; position:absolute; left:0; right:0; top:50%; height:var(--hit-min); transform:translateY(-50%); } /* 触控热区 */
+.gal-btn.is-hover{ color:var(--c-gold-hi); border-color:var(--c-gold-hi);
+  background:linear-gradient(180deg,rgba(96,66,116,.95),rgba(58,48,96,.95));
+  box-shadow:0 0 0 1px rgba(243,217,164,.25),0 0 18px rgba(240,168,94,.35); }
+.gal-btn.is-pressed{ transform:scale(.96); transition-duration:var(--d-press);
+  background:linear-gradient(180deg,rgba(20,22,44,.98),rgba(58,48,96,.98)); box-shadow:inset 0 2px 8px rgba(0,0,0,.5); }
+.gal-btn--primary{ background:linear-gradient(180deg,#e9b06d,#c4793f); color:#1a1730; text-shadow:none; border-color:#f3d9a4; font-weight:700; }
+.gal-btn--primary.is-hover{ background:linear-gradient(180deg,#ffd29a,#e2944f); color:#1a1730; }
+.gal-btn.is-disabled,.gal-btn:disabled{ opacity:.38; filter:grayscale(.6); pointer-events:none; }
+.gal-btn--icon{ min-width:0; width:60px; padding:0; }
+@media (hover:hover){
+  .gal-btn:hover{ color:var(--c-gold-hi); border-color:var(--c-gold-hi);
+    background:linear-gradient(180deg,rgba(96,66,116,.95),rgba(58,48,96,.95));
+    box-shadow:0 0 0 1px rgba(243,217,164,.25),0 0 18px rgba(240,168,94,.35); }
+  .gal-btn--primary:hover{ background:linear-gradient(180deg,#ffd29a,#e2944f); color:#1a1730; }
+}
+.gal-btn:active{ transform:scale(.96); transition-duration:var(--d-press); }
+
+/* 标签页 */
+.gal-tabs{ display:flex; gap:6px; }
+.gal-tab{
+  position:relative; height:52px; min-width:120px; padding:0 22px; border:none; cursor:pointer;
+  font:500 var(--fs-ui)/52px var(--font-serif); letter-spacing:.1em; color:var(--c-mute); background:transparent;
+  transition:color var(--d-hover) var(--ease-out);
+}
+.gal-tab::before{ content:""; position:absolute; left:18%; right:18%; bottom:4px; height:2px; background:var(--tab-accent,var(--c-gold));
+  transform:scaleX(0); transition:transform var(--d-ui) var(--ease-out); }
+.gal-tab::after{ content:""; position:absolute; inset:50% 0 auto; height:var(--hit-min); transform:translateY(-50%); }
+.gal-tab.is-hover{ color:var(--c-cream); }
+.gal-tab.is-selected{ color:var(--c-gold-hi); text-shadow:0 0 12px rgba(240,168,94,.45); }
+.gal-tab.is-selected::before{ transform:scaleX(1); }
+.gal-tab.is-pressed{ color:var(--c-amber); }
+.gal-tab.is-disabled{ opacity:.35; pointer-events:none; }
+@media (hover:hover){ .gal-tab:hover{ color:var(--c-cream); } }
+
+/* 滑杆 */
+.gal-slider{ -webkit-appearance:none; appearance:none; width:360px; height:44px; background:transparent; cursor:pointer; --val:50%; }
+.gal-slider::-webkit-slider-runnable-track{ height:6px; border-radius:3px;
+  background:linear-gradient(90deg,var(--c-amber) var(--val),rgba(255,255,255,.14) var(--val)); box-shadow:inset 0 1px 2px rgba(0,0,0,.5); }
+.gal-slider::-moz-range-track{ height:6px; border-radius:3px; background:rgba(255,255,255,.14); }
+.gal-slider::-moz-range-progress{ height:6px; border-radius:3px; background:var(--c-amber); }
+.gal-slider::-webkit-slider-thumb{ -webkit-appearance:none; width:28px; height:28px; margin-top:-11px; transform:rotate(45deg); border-radius:4px;
+  background:radial-gradient(circle at 35% 35%,#fff4d6,#e3b26a 60%,#a96f35); border:2px solid #3a2f5c; box-shadow:0 0 0 3px rgba(240,168,94,.0); transition:box-shadow var(--d-hover); }
+.gal-slider::-moz-range-thumb{ width:24px; height:24px; transform:rotate(45deg); border-radius:4px; background:#e3b26a; border:2px solid #3a2f5c; }
+.gal-slider:hover::-webkit-slider-thumb,.gal-slider.is-hover::-webkit-slider-thumb{ box-shadow:0 0 0 6px rgba(240,168,94,.25); }
+.gal-slider:active::-webkit-slider-thumb,.gal-slider.is-pressed::-webkit-slider-thumb{ box-shadow:0 0 0 10px rgba(240,168,94,.35); }
+.gal-slider:disabled{ opacity:.35; }
+
+/* 开关（ON/OFF 二择，galgame 惯用文字式） */
+.gal-toggle{ display:inline-flex; border:var(--line); border-radius:24px; overflow:hidden; height:48px; }
+.gal-toggle button{ position:relative; min-width:96px; border:none; background:transparent; color:var(--c-mute); cursor:pointer;
+  font:500 var(--fs-small)/48px var(--font-serif); letter-spacing:.1em; transition:all var(--d-hover) var(--ease-out); }
+.gal-toggle button::after{ content:""; position:absolute; inset:50% 0 auto; height:var(--hit-min); transform:translateY(-50%); }
+.gal-toggle button.is-selected{ background:linear-gradient(180deg,#e9b06d,#c4793f); color:#1a1730; font-weight:700; }
+.gal-toggle button.is-hover:not(.is-selected){ color:var(--c-cream); background:rgba(255,255,255,.06); }
+@media (hover:hover){ .gal-toggle button:hover:not(.is-selected){ color:var(--c-cream); background:rgba(255,255,255,.06); } }
+
+/* 分隔饰线 / 标题 */
+.gal-divider{ height:20px; background:url("svg/ornament-divider.svg") center/contain no-repeat; }
+
+/* ---------- 3. 标题画面 ---------- */
+.scr-title{ position:absolute; inset:0; background:var(--c-night) url("svg/title-bg.svg") center/cover no-repeat; }
+.title-keyvisual{ /* 标题主视觉槽位：有 art/ui/title_kv.png 时由程序设 background-image；没有则显示渐变占位 */
+  position:absolute; left:300px; top:0; width:640px; height:720px; pointer-events:none;
+  background:var(--kv-img, radial-gradient(40% 55% at 50% 58%,rgba(242,184,198,.18),transparent 70%)) center bottom/contain no-repeat;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent); mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);
+  animation:gal-fade-in 1400ms var(--ease-soft) 200ms both; }
+.title-keyvisual.is-placeholder::after{ content:"KEY VISUAL · title_kv.webp"; position:absolute; left:50%; bottom:120px; transform:translateX(-50%);
+  font:italic 400 14px/1 var(--font-latin); letter-spacing:.3em; color:rgba(242,184,198,.35); white-space:nowrap; }
+.scr-title .title-logo{ position:absolute; left:56px; top:48px; width:600px; filter:drop-shadow(0 6px 18px rgba(0,0,0,.45));
+  animation:gal-title-logo 1600ms var(--ease-out) both; }
+.title-menu{ position:absolute; right:64px; top:152px; width:340px; display:flex; flex-direction:column; }
+.title-btn{
+  position:relative; height:var(--hit-min); width:100%; border:none; background:transparent; cursor:pointer;
+  font:600 var(--fs-title-btn)/1 var(--font-serif); letter-spacing:.42em; text-indent:.42em; color:var(--c-cream);
+  text-shadow:var(--text-shadow); transition:color var(--d-hover) var(--ease-out), letter-spacing var(--d-ui) var(--ease-out);
+}
+.title-btn::before{ /* 底板 */ content:""; position:absolute; left:10px; right:10px; top:12px; bottom:12px;
+  background:url("svg/btn-title.svg") center/100% 100% no-repeat; opacity:.55; transition:opacity var(--d-hover), filter var(--d-hover); }
+.title-btn .sub{ display:block; margin-top:6px; font:italic 400 13px/1 var(--font-latin); letter-spacing:.3em; text-indent:.3em; color:var(--c-gold); opacity:.8; }
+.title-btn .lbl{ position:relative; }
+.title-btn .lbl::before,.title-btn .lbl::after{ content:"◆"; position:absolute; top:50%; font-size:12px; color:var(--c-amber); opacity:0;
+  transition:all var(--d-ui) var(--ease-out); transform:translateY(-50%); }
+.title-btn .lbl::before{ left:-40px; } .title-btn .lbl::after{ right:-34px; }
+.title-btn.is-hover{ color:var(--c-gold-hi); text-shadow:0 0 14px rgba(240,168,94,.7),var(--text-shadow); }
+.title-btn.is-hover::before{ opacity:1; filter:brightness(1.4) saturate(1.3); }
+.title-btn.is-hover .lbl::before{ opacity:1; left:-30px; } .title-btn.is-hover .lbl::after{ opacity:1; right:-24px; }
+.title-btn.is-pressed{ color:var(--c-amber); transform:scale(.97); transition-duration:var(--d-press); }
+.title-btn.is-disabled,.title-btn:disabled{ color:var(--c-mute); opacity:.45; pointer-events:none; }
+@media (hover:hover){
+  .title-btn:hover{ color:var(--c-gold-hi); text-shadow:0 0 14px rgba(240,168,94,.7),var(--text-shadow); }
+  .title-btn:hover::before{ opacity:1; filter:brightness(1.4) saturate(1.3); }
+  .title-btn:hover .lbl::before{ opacity:1; left:-30px; } .title-btn:hover .lbl::after{ opacity:1; right:-24px; }
+}
+.title-btn:active{ color:var(--c-amber); transform:scale(.97); }
+.title-foot{ position:absolute; left:24px; right:24px; bottom:14px; display:flex; justify-content:space-between;
+  font:400 var(--fs-tiny)/1 var(--font-latin); letter-spacing:.12em; color:rgba(251,243,230,.6); text-shadow:var(--text-shadow); }
+.title-touch{ position:absolute; left:0; right:0; bottom:110px; text-align:center; font:500 22px/1 var(--font-serif); letter-spacing:.5em;
+  color:var(--c-cream); text-shadow:var(--text-shadow); animation:gal-blink 2400ms ease-in-out infinite; }
+
+/* 樱花花瓣飘落（标题/夜樱场景）：容器 .gal-petals，子元素 .petal 由 GalUI.petals() 生成，
+   每片用 --x 起始横坐标、--dx 漂移、--dur 时长、--delay、--s 尺寸、--r 旋转 */
+.gal-petals{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.gal-petals .petal{ position:absolute; top:-40px; left:var(--x,50%); width:calc(18px * var(--s,1)); height:calc(14px * var(--s,1));
+  border-radius:100% 0 100% 0 / 100% 0 100% 0; opacity:0;
+  background:radial-gradient(circle at 30% 30%,#fff1f4,var(--c-sakura) 55%,var(--c-sakura-deep));
+  box-shadow:0 0 6px rgba(242,184,198,.45);
+  animation:gal-petal-fall var(--dur,9s) linear var(--delay,0s) infinite; }
+.gal-petals .petal.is-far{ filter:blur(1.2px); opacity:.6; }
+@keyframes gal-petal-fall{
+  0%{ transform:translate(0,0) rotate(var(--r,0deg)) rotateX(0); opacity:0 }
+  8%{ opacity:.95 }
+  50%{ transform:translate(calc(var(--dx,-120px) * .55),400px) rotate(calc(var(--r,0deg) + 200deg)) rotateX(180deg) }
+  92%{ opacity:.9 }
+  100%{ transform:translate(var(--dx,-120px),800px) rotate(calc(var(--r,0deg) + 400deg)) rotateX(360deg); opacity:0 }
+}
+
+/* ---------- 4. ADV：对话框 / 名字栏 / 选项 / 快捷菜单 ---------- */
+.gal-textbox{
+  position:absolute; left:48px; right:48px; bottom:8px; height:264px; border-radius:var(--radius);
+  background:
+    linear-gradient(180deg,rgba(34,38,72,calc(var(--window-alpha) * .86)),rgba(16,18,38,var(--window-alpha)) 70%);
+  border:var(--line);
+  box-shadow:inset 0 0 0 5px rgba(0,0,0,0), inset 0 0 0 6px rgba(217,191,138,.16), 0 8px 30px rgba(0,0,0,.45);
+  transition:opacity var(--d-ui) var(--ease-std), transform var(--d-ui) var(--ease-std);
+}
+.gal-textbox::before,.gal-textbox::after{ content:""; position:absolute; width:48px; height:48px; top:-1px; pointer-events:none;
+  background:url("svg/ornament-corner.svg") center/contain no-repeat; }
+.gal-textbox::before{ left:-1px; } .gal-textbox::after{ right:-1px; transform:scaleX(-1); }
+.gal-textbox .tb-shine{ position:absolute; left:10%; right:10%; top:0; height:1px; background:linear-gradient(90deg,transparent,rgba(243,217,164,.8),transparent); }
+.gal-textbox.is-hidden{ opacity:0; transform:translateY(12px); pointer-events:none; }
+.gal-textbox.is-hidden ~ .gal-quickmenu{ opacity:0; pointer-events:none; }
+
+.gal-nametag{
+  position:absolute; left:72px; top:-30px; min-width:210px; height:56px; padding:0 34px 0 30px;
+  display:flex; align-items:center; gap:12px;
+  font:700 var(--fs-name)/1 var(--font-serif); letter-spacing:.14em; color:var(--c-cream); text-shadow:var(--text-shadow);
+  background:linear-gradient(90deg,var(--accent) 0 6px,rgba(22,25,50,.95) 6px,rgba(34,38,72,.95));
+  border:1px solid rgba(217,191,138,.7); border-radius:4px 28px 28px 4px;
+  box-shadow:0 4px 14px rgba(0,0,0,.45), inset 0 -2px 0 color-mix(in srgb,var(--accent) 70%,transparent);
+}
+.gal-nametag::after{ content:""; width:10px; height:10px; transform:rotate(45deg); background:var(--accent); box-shadow:0 0 8px var(--accent); order:-1; }
+.gal-nametag .ruby{ font:italic 400 14px/1 var(--font-latin); letter-spacing:.2em; color:var(--accent); opacity:.95; }
+.gal-nametag.is-empty{ display:none; }
+
+[data-chara="ayaka"]{ --accent:var(--c-ayaka); } [data-chara="makoto"]{ --accent:var(--c-makoto); }
+[data-chara="yukino"]{ --accent:var(--c-yukino); } [data-chara="hero"]{ --accent:var(--c-hero); } [data-chara="bucho"]{ --accent:var(--c-bucho); } [data-chara="narr"]{ --accent:var(--c-narr); }
+
+.gal-text{
+  position:absolute; left:96px; right:96px; top:44px; height:134px; overflow:hidden;
+  font:500 var(--fs-dialog)/var(--lh-dialog) var(--font-sans); letter-spacing:.04em; color:var(--c-cream);
+  text-shadow:var(--text-shadow); word-break:break-all; line-break:strict;
+}
+.gal-text.is-read{ color:var(--c-text-read); }
+.gal-text .ch{ opacity:0; animation:gal-char-in 120ms var(--ease-out) forwards; } /* 打字机单字淡入 */
+.gal-text.is-serif{ font-family:var(--font-serif); }
+.gal-clickwait{ display:inline-block; width:30px; height:30px; margin-left:6px; vertical-align:-6px;
+  background:url("svg/click-wait.svg") center/contain no-repeat; animation:gal-wait-bob 900ms var(--ease-soft) infinite alternate; }
+.gal-clickwait.is-page{ background-image:url("svg/click-wait-page.svg"); animation:gal-wait-page 1200ms var(--ease-soft) infinite; }
+
+/* 选项 */
+.gal-choices{ position:absolute; left:0; right:0; top:96px; bottom:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; }
+.gal-choice{
+  position:relative; width:720px; height:72px; border:none; cursor:pointer;
+  background:url("svg/btn-choice.svg") center/100% 100% no-repeat;
+  font:500 var(--fs-ui)/72px var(--font-serif); letter-spacing:.12em; color:var(--c-cream); text-shadow:var(--text-shadow);
+  transition:transform var(--d-hover) var(--ease-out), filter var(--d-hover), color var(--d-hover);
+  animation:gal-choice-in 360ms var(--ease-out) both;
+}
+.gal-choice:nth-child(2){ animation-delay:60ms; } .gal-choice:nth-child(3){ animation-delay:120ms; } .gal-choice:nth-child(4){ animation-delay:180ms; }
+.gal-choice::after{ content:""; position:absolute; left:0; right:0; top:50%; height:var(--hit-min); transform:translateY(-50%); }
+.gal-choice::before{ content:""; position:absolute; inset:0; border-radius:4px; opacity:0; transition:opacity var(--d-hover);
+  background:radial-gradient(60% 120% at 50% 50%,rgba(240,168,94,.38),transparent 70%); }
+.gal-choice .mark{ position:absolute; left:52px; top:50%; transform:translateY(-50%); font-size:16px; color:var(--c-gold); }
+.gal-choice .note{ position:absolute; right:48px; top:50%; transform:translateY(-50%); font:400 var(--fs-tiny)/1 var(--font-sans); letter-spacing:.05em; color:var(--c-mute); display:inline-flex; align-items:center; gap:6px; }
+.gal-choice.is-hover{ color:var(--c-gold-hi); filter:brightness(1.25) drop-shadow(0 0 10px rgba(240,168,94,.45)); transform:scale(1.02); }
+.gal-choice.is-hover::before{ opacity:1; }
+.gal-choice.is-pressed{ transform:scale(.98); filter:brightness(.85); transition-duration:var(--d-press); }
+.gal-choice.is-selected{ color:var(--c-text-read); } /* 已选过（二周目提示） */
+.gal-choice.is-selected .mark{ color:var(--c-text-read); }
+.gal-choice.is-disabled,.gal-choice:disabled{ color:var(--c-mute); filter:grayscale(.8) brightness(.7); pointer-events:none; }
+.gal-choice.is-chosen{ animation:gal-choice-chosen 420ms var(--ease-out) forwards; }
+@media (hover:hover){
+  .gal-choice:hover{ color:var(--c-gold-hi); filter:brightness(1.25) drop-shadow(0 0 10px rgba(240,168,94,.45)); transform:scale(1.02); }
+  .gal-choice:hover::before{ opacity:1; }
+}
+.gal-choice:active{ transform:scale(.98); filter:brightness(.85); }
+
+/* 快捷菜单（右下，对话框内） */
+.gal-quickmenu{ position:absolute; right:60px; bottom:12px; display:flex; z-index:2; transition:opacity var(--d-ui); }
+.qm-btn{
+  position:relative; width:var(--hit-min); height:var(--hit-min); border:none; background:transparent; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  color:rgba(251,243,230,.72); font:600 15px/1 var(--font-latin); letter-spacing:.06em; text-shadow:var(--text-shadow);
+  transition:color var(--d-hover) var(--ease-out);
+}
+.qm-btn .ico{ --ico-size:28px; filter:drop-shadow(0 1px 2px rgba(0,0,0,.7)); transition:transform var(--d-hover) var(--ease-out); }
+.qm-btn::before{ /* 可视底：84x64 */ content:""; position:absolute; left:3px; right:3px; top:12px; bottom:12px; border-radius:10px;
+  border:1px solid transparent; transition:all var(--d-hover) var(--ease-out); }
+.qm-btn.is-hover{ color:var(--c-gold-hi); }
+.qm-btn.is-hover::before{ background:rgba(240,168,94,.14); border-color:rgba(243,217,164,.45); }
+.qm-btn.is-hover .ico{ transform:translateY(-2px); }
+.qm-btn.is-pressed{ color:var(--c-amber); }
+.qm-btn.is-pressed::before{ background:rgba(0,0,0,.35); border-color:rgba(240,168,94,.6); }
+.qm-btn.is-pressed .ico{ transform:scale(.9); }
+.qm-btn.is-active{ color:#1a1730; text-shadow:none; }           /* Auto / Skip 开启中 */
+.qm-btn.is-active::before{ background:linear-gradient(180deg,#f3c27e,#d48a47); border-color:#f3d9a4; box-shadow:0 0 14px rgba(240,168,94,.6); }
+.qm-btn.is-active .ico{ filter:none; animation:gal-qm-pulse 1200ms ease-in-out infinite; }
+.qm-btn.is-disabled,.qm-btn:disabled{ color:rgba(168,151,159,.45); pointer-events:none; }
+@media (hover:hover){
+  .qm-btn:hover{ color:var(--c-gold-hi); }
+  .qm-btn:hover::before{ background:rgba(240,168,94,.14); border-color:rgba(243,217,164,.45); }
+  .qm-btn.is-active:hover{ color:#1a1730; }
+}
+.qm-btn:active::before{ background:rgba(0,0,0,.35); }
+.qm-sep{ width:1px; margin:28px 4px; background:rgba(217,191,138,.35); }
+
+/* 自动/快进 状态角标 */
+.gal-modebadge{ position:absolute; right:24px; top:20px; padding:6px 16px; border-radius:16px; font:700 16px/1 var(--font-latin); letter-spacing:.2em;
+  color:#1a1730; background:linear-gradient(180deg,#f3c27e,#d48a47); box-shadow:0 0 12px rgba(240,168,94,.5); animation:gal-blink 1600ms ease-in-out infinite; }
+
+/* ---------- 5. 系统界面 ---------- */
+.gal-screen{
+  position:absolute; inset:0; padding:0;
+  background:
+    radial-gradient(120% 80% at 80% 0%,rgba(120,84,150,.35),transparent 60%),
+    radial-gradient(90% 70% at 0% 100%,rgba(240,168,94,.12),transparent 60%),
+    linear-gradient(180deg,#1c2146,#0f1229);
+  animation:gal-screen-in var(--d-ui) var(--ease-out) both;
+}
+.gal-screen::before{ /* 细格纹理 */ content:""; position:absolute; inset:0; opacity:.06; pointer-events:none;
+  background:repeating-linear-gradient(45deg,#fff 0 1px,transparent 1px 14px); }
+.gal-screen.is-closing{ animation:gal-screen-out 200ms var(--ease-in) both; }
+.scr-head{ position:absolute; left:56px; right:40px; top:24px; height:88px; display:flex; align-items:center; gap:28px; }
+.scr-head h1{ margin:0; font:700 var(--fs-h1)/1 var(--font-serif); letter-spacing:.24em; color:var(--c-cream); text-shadow:var(--text-shadow); }
+.scr-head h1 small{ display:block; margin-top:8px; font:italic 400 15px/1 var(--font-latin); letter-spacing:.42em; color:var(--c-gold); }
+.scr-head .spacer{ flex:1; }
+.scr-head::after{ content:""; position:absolute; left:0; right:0; bottom:-6px; height:1px; background:linear-gradient(90deg,var(--c-gold),rgba(217,191,138,.1) 70%,transparent); }
+.scr-body{ position:absolute; left:56px; right:56px; top:128px; bottom:28px; }
+
+/* 存读档 */
+.save-grid{ display:grid; grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(3,1fr); gap:14px 20px; height:470px; }
+.gal-slot{
+  position:relative; display:flex; gap:16px; padding:10px; border-radius:10px; cursor:pointer; text-align:left;
+  background:linear-gradient(90deg,rgba(44,48,92,.75),rgba(26,30,60,.6)); border:1px solid rgba(217,191,138,.3);
+  color:var(--c-cream); transition:all var(--d-hover) var(--ease-out); font-family:var(--font-sans);
+}
+.gal-slot .thumb{ width:240px; height:135px; flex:none; border-radius:6px; overflow:hidden; background:#000 center/cover;
+  border:1px solid rgba(217,191,138,.45); box-shadow:0 2px 8px rgba(0,0,0,.5); position:relative; }
+.gal-slot .thumb.is-empty{ display:grid; place-items:center; background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px),#161a33;
+  font:italic 400 16px/1 var(--font-latin); letter-spacing:.3em; color:rgba(217,191,138,.5); }
+.gal-slot .no{ font:600 24px/1 var(--font-latin); color:var(--c-gold); letter-spacing:.08em; }
+.gal-slot .no small{ font-size:14px; color:var(--c-mute); margin-left:6px; letter-spacing:.2em; }
+.gal-slot .date{ margin-top:10px; font:400 16px/1 var(--font-latin); color:var(--c-mute); letter-spacing:.06em; }
+.gal-slot .chap{ margin-top:12px; font:600 19px/1.3 var(--font-serif); color:var(--c-cream); }
+.gal-slot .line{ margin-top:6px; font:400 15px/1.45 var(--font-sans); color:rgba(251,243,230,.7); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; padding-right:40px; }
+.gal-slot .badge{ position:absolute; right:10px; top:10px; padding:3px 10px; border-radius:10px; font:700 12px/1.2 var(--font-latin); letter-spacing:.15em; background:var(--c-wine); color:var(--c-gold-hi); }
+.gal-slot .badge.is-new{ background:var(--c-amber); color:#1a1730; }
+.gal-slot .del{ position:absolute; right:6px; bottom:6px; width:44px; height:44px; border:none; background:transparent; color:var(--c-mute); cursor:pointer; border-radius:50%; }
+.gal-slot.is-hover{ border-color:var(--c-gold-hi); background:linear-gradient(90deg,rgba(96,66,116,.85),rgba(44,48,92,.7)); box-shadow:0 0 16px rgba(240,168,94,.3); }
+.gal-slot.is-pressed{ transform:scale(.985); background:rgba(22,25,50,.9); }
+.gal-slot.is-selected{ border-color:var(--c-amber); box-shadow:0 0 0 2px var(--c-amber),0 0 18px rgba(240,168,94,.4); }
+.gal-slot.is-disabled{ opacity:.45; pointer-events:none; } /* 读档模式下空槽 */
+@media (hover:hover){ .gal-slot:hover{ border-color:var(--c-gold-hi); background:linear-gradient(90deg,rgba(96,66,116,.85),rgba(44,48,92,.7)); box-shadow:0 0 16px rgba(240,168,94,.3); } }
+.gal-slot:active{ transform:scale(.985); }
+
+.gal-pager{ display:flex; justify-content:center; align-items:center; gap:4px; margin-top:16px; }
+.gal-page{ position:relative; width:52px; height:52px; border:none; border-radius:50%; background:transparent; cursor:pointer;
+  font:600 20px/52px var(--font-latin); color:var(--c-mute); transition:all var(--d-hover); }
+.gal-page::after{ content:""; position:absolute; inset:50% auto auto 50%; width:var(--hit-min); height:var(--hit-min); transform:translate(-50%,-50%); }
+.gal-page.is-hover{ color:var(--c-cream); background:rgba(255,255,255,.06); }
+.gal-page.is-selected{ color:#1a1730; background:linear-gradient(180deg,#f3c27e,#d48a47); box-shadow:0 0 12px rgba(240,168,94,.5); }
+.gal-page.is-pressed{ transform:scale(.92); }
+.gal-page.is-wide{ width:auto; padding:0 16px; border-radius:26px; font-size:17px; letter-spacing:.1em; }
+@media (hover:hover){ .gal-page:hover:not(.is-selected){ color:var(--c-cream); background:rgba(255,255,255,.06); } }
+
+/* Backlog */
+.log-list{ position:absolute; inset:0 24px 0 0; overflow-y:auto; padding:8px 24px 40px 8px; scrollbar-width:thin; scrollbar-color:var(--c-gold) transparent;
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 24px,#000 calc(100% - 40px),transparent); mask-image:linear-gradient(180deg,transparent,#000 24px,#000 calc(100% - 40px),transparent); }
+.log-list::-webkit-scrollbar{ width:6px; } .log-list::-webkit-scrollbar-thumb{ background:var(--c-gold); border-radius:3px; }
+.gal-log-item{ position:relative; display:grid; grid-template-columns:88px 170px 1fr; align-items:start; gap:0 12px; padding:14px 12px;
+  border-bottom:1px solid rgba(217,191,138,.14); border-radius:8px; transition:background var(--d-hover); }
+.gal-log-item .voice{ position:relative; width:52px; height:52px; margin:-8px 0 0 8px; border-radius:50%; border:1px solid rgba(217,191,138,.5); background:rgba(26,30,60,.8);
+  color:var(--accent); display:grid; place-items:center; cursor:pointer; transition:all var(--d-hover); }
+.gal-log-item .voice::after{ content:""; position:absolute; inset:50% auto auto 50%; width:var(--hit-min); height:var(--hit-min); transform:translate(-50%,-50%); }
+.gal-log-item .voice.is-hover,.gal-log-item .voice:hover{ background:var(--c-plum); border-color:var(--c-gold-hi); }
+.gal-log-item .voice.is-playing{ background:var(--accent); color:#1a1730; animation:gal-qm-pulse 900ms ease-in-out infinite; }
+.gal-log-item .name{ font:700 21px/1.6 var(--font-serif); letter-spacing:.1em; color:var(--accent); text-shadow:var(--text-shadow); }
+.gal-log-item .msg{ font:400 21px/1.6 var(--font-sans); color:var(--c-cream); text-shadow:var(--text-shadow); }
+.gal-log-item.is-narr .msg{ color:rgba(251,243,230,.82); }
+.gal-log-item.is-choice .msg{ color:var(--c-amber); font-family:var(--font-serif); }
+.gal-log-item.is-hover,.gal-log-item:hover{ background:rgba(240,168,94,.07); }
+.gal-log-item.is-current{ background:rgba(240,168,94,.1); box-shadow:inset 3px 0 0 var(--c-amber); }
+
+/* 设置 */
+.cfg-cols{ display:grid; grid-template-columns:1fr 1fr; gap:0 56px; }
+.cfg-group h3{ margin:0 0 6px; font:600 20px/1 var(--font-serif); letter-spacing:.3em; color:var(--c-gold); display:flex; align-items:center; gap:12px; }
+.cfg-group h3::after{ content:""; flex:1; height:1px; background:linear-gradient(90deg,rgba(217,191,138,.5),transparent); }
+.cfg-group + .cfg-group{ margin-top:18px; }
+.cfg-row{ display:grid; grid-template-columns:150px 1fr 56px; align-items:center; height:62px; }
+.cfg-row label{ font:500 20px/1 var(--font-serif); letter-spacing:.1em; color:var(--c-cream); }
+.cfg-row output{ font:600 18px/1 var(--font-latin); color:var(--c-gold-hi); text-align:right; }
+.cfg-row .gal-slider{ width:100%; }
+.cfg-row.is-toggle{ grid-template-columns:150px 1fr; }
+.cfg-preview{ margin-top:8px; height:96px; border-radius:10px; position:relative; overflow:hidden; border:var(--line);
+  background:linear-gradient(135deg,#2c3466,#8a6aa8 60%,#e8a46a); }
+.cfg-preview .pv-box{ position:absolute; inset:14px; border-radius:8px; background:rgba(16,18,38,var(--window-alpha)); border:1px solid rgba(217,191,138,.4);
+  padding:12px 18px; font:500 19px/1.5 var(--font-sans); color:var(--c-cream); text-shadow:var(--text-shadow); }
+.cfg-foot{ position:absolute; right:0; bottom:0; display:flex; gap:16px; }
+
+/* CG 鉴赏 & 回想 */
+.cg-grid{ display:grid; grid-template-columns:repeat(4,264px); grid-auto-rows:150px; gap:18px 22px; justify-content:center; margin-top:12px; }
+.gal-cg-tile{ position:relative; border-radius:8px; overflow:hidden; cursor:pointer; background:#000 center/cover;
+  border:1px solid rgba(217,191,138,.45); box-shadow:0 4px 14px rgba(0,0,0,.5); transition:all var(--d-hover) var(--ease-out); }
+.gal-cg-tile .art{ position:absolute; inset:0; background:var(--art,linear-gradient(135deg,#2c3466,#e8a46a)); transition:transform var(--d-ui) var(--ease-out); }
+.gal-cg-tile .cap{ position:absolute; left:0; right:0; bottom:0; padding:22px 12px 8px; display:flex; justify-content:space-between; align-items:flex-end;
+  background:linear-gradient(180deg,transparent,rgba(12,14,32,.85)); font:500 15px/1 var(--font-serif); letter-spacing:.08em; color:var(--c-cream); }
+.gal-cg-tile .cap .cnt{ font:600 13px/1 var(--font-latin); color:var(--c-gold-hi); display:inline-flex; align-items:center; gap:4px; }
+.gal-cg-tile .cap .cnt .ico{ --ico-size:16px; }
+.gal-cg-tile.is-hover,.gal-cg-tile:hover{ border-color:var(--c-gold-hi); box-shadow:0 0 0 2px rgba(243,217,164,.5),0 0 22px rgba(240,168,94,.4); }
+.gal-cg-tile.is-hover .art,.gal-cg-tile:hover .art{ transform:scale(1.05); }
+.gal-cg-tile.is-pressed,.gal-cg-tile:active{ transform:scale(.97); }
+.gal-cg-tile.is-new::before{ content:"NEW"; position:absolute; z-index:2; left:8px; top:8px; padding:3px 8px; border-radius:4px; font:700 12px/1.2 var(--font-latin); letter-spacing:.15em; background:var(--c-amber); color:#1a1730; }
+.gal-cg-tile.is-locked{ cursor:default; border-color:rgba(168,151,159,.3); box-shadow:none; }
+.gal-cg-tile.is-locked .art{ background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 12px,transparent 12px 24px),linear-gradient(135deg,#232847,#161a33); transform:none; }
+.gal-cg-tile.is-locked .cap{ color:var(--c-mute); }
+.gal-cg-tile.is-locked::after{ content:""; position:absolute; left:50%; top:44%; width:56px; height:56px; transform:translate(-50%,-50%); background:url("svg/lock.svg") center/contain no-repeat; opacity:.8; }
+.cg-progress{ font:600 18px/1 var(--font-latin); letter-spacing:.1em; color:var(--c-gold-hi); }
+.cg-progress small{ color:var(--c-mute); font-size:14px; margin-left:6px; }
+/* CG 大图浏览（差分） */
+.cg-viewer{ position:absolute; inset:0; background:#000; z-index:5; animation:gal-fade-in 300ms var(--ease-out) both; cursor:pointer; }
+.cg-viewer .cg-img{ position:absolute; inset:0; background:var(--art) center/cover; }
+.cg-viewer .cg-img.is-entering{ animation:gal-fade-in var(--d-cgdiff) var(--ease-std) both; }
+.cg-viewer .cg-hud{ position:absolute; left:0; right:0; bottom:0; height:96px; display:flex; align-items:center; justify-content:center; gap:20px;
+  background:linear-gradient(180deg,transparent,rgba(8,8,20,.8)); transition:opacity var(--d-ui); }
+.cg-viewer .cg-dots{ display:flex; gap:10px; } .cg-viewer .cg-dots i{ width:12px; height:12px; transform:rotate(45deg); border:1px solid var(--c-gold); }
+.cg-viewer .cg-dots i.on{ background:var(--c-amber); box-shadow:0 0 8px var(--c-amber); }
+.cg-viewer .cg-dots i.locked{ border-color:var(--c-mute); opacity:.4; }
+.cg-viewer.hud-hidden .cg-hud{ opacity:0; }
+
+.replay-list{ display:grid; grid-template-columns:1fr 1fr; gap:14px 24px; }
+.gal-replay-item{ position:relative; display:flex; align-items:center; gap:18px; height:var(--hit-min); padding:0 20px 0 0; border-radius:10px; cursor:pointer; overflow:hidden;
+  background:linear-gradient(90deg,rgba(44,48,92,.8),rgba(26,30,60,.5)); border:1px solid rgba(217,191,138,.3); transition:all var(--d-hover) var(--ease-out); }
+.gal-replay-item .rthumb{ width:156px; height:100%; flex:none; background:var(--art) center/cover; border-right:3px solid var(--accent); }
+.gal-replay-item .rtitle{ font:600 21px/1.2 var(--font-serif); letter-spacing:.08em; color:var(--c-cream); }
+.gal-replay-item .rsub{ margin-top:6px; font:400 14px/1 var(--font-sans); color:var(--c-mute); letter-spacing:.06em; }
+.gal-replay-item .ico-play{ margin-left:auto; color:var(--c-gold); --ico-size:28px; }
+.gal-replay-item.is-hover,.gal-replay-item:hover{ border-color:var(--c-gold-hi); background:linear-gradient(90deg,rgba(96,66,116,.9),rgba(44,48,92,.6)); }
+.gal-replay-item.is-pressed,.gal-replay-item:active{ transform:scale(.985); }
+.gal-replay-item.is-locked{ pointer-events:none; }
+.gal-replay-item.is-locked .rthumb{ background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 10px,transparent 10px 20px),#1a1d3a; border-right-color:var(--c-mute); }
+.gal-replay-item.is-locked .rtitle{ color:var(--c-mute); } .gal-replay-item.is-locked .ico-play{ color:var(--c-mute); }
+
+/* 系统菜单 + 好感度 */
+.sysmenu{ display:grid; grid-template-columns:360px 1fr; gap:48px; }
+.sysmenu .col-btns{ display:flex; flex-direction:column; gap:6px; }
+.sysmenu .col-btns .gal-btn{ width:100%; justify-content:flex-start; padding-left:36px; border-radius:10px; height:64px; }
+.gal-affection{ display:flex; flex-direction:column; gap:16px; }
+.aff-card{ display:grid; grid-template-columns:88px 1fr; gap:18px; align-items:center; padding:14px 20px; border-radius:12px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 22%,transparent),rgba(26,30,60,.4)); border:1px solid color-mix(in srgb,var(--accent) 60%,transparent); }
+.aff-card .face{ width:88px; height:88px; border-radius:50%; border:2px solid var(--accent); background:var(--face,radial-gradient(circle at 50% 38%,var(--accent),#1f2547 75%)); box-shadow:0 0 14px color-mix(in srgb,var(--accent) 50%,transparent); }
+.aff-card .who{ font:700 24px/1 var(--font-serif); letter-spacing:.14em; color:var(--c-cream); }
+.aff-card .who small{ margin-left:10px; font:400 15px/1 var(--font-sans); color:var(--c-mute); letter-spacing:.05em; }
+.aff-hearts{ display:flex; gap:6px; margin-top:12px; color:var(--accent); }
+.aff-hearts .ico{ --ico-size:26px; } .aff-hearts .ico-heart-outline{ opacity:.5; }
+.aff-bar{ margin-top:10px; height:6px; border-radius:3px; background:rgba(255,255,255,.1); overflow:hidden; }
+.aff-bar i{ display:block; height:100%; width:var(--v,50%); background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 60%,#fff),var(--accent)); }
+/* 好感度变化提示（ADV 中右上） */
+.gal-toast{ position:absolute; right:40px; top:32px; display:flex; align-items:center; gap:10px; padding:12px 22px 12px 16px; border-radius:26px;
+  background:rgba(22,25,50,.88); border:1px solid color-mix(in srgb,var(--accent) 70%,transparent); box-shadow:0 4px 16px rgba(0,0,0,.4),0 0 12px color-mix(in srgb,var(--accent) 40%,transparent);
+  font:500 19px/1 var(--font-serif); letter-spacing:.08em; color:var(--c-cream); animation:gal-toast 2600ms var(--ease-out) both; }
+.gal-toast .ico{ color:var(--accent); --ico-size:24px; animation:gal-heartbeat 1000ms ease-in-out 2; }
+.gal-toast.is-static{ animation:none; }
+
+/* 确认对话框 */
+.gal-modal-veil{ position:absolute; inset:0; background:rgba(8,8,20,.6); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); display:grid; place-items:center;
+  animation:gal-fade-in 200ms var(--ease-out) both; }
+.gal-modal{ width:640px; padding:40px 48px 36px; text-align:center; border-radius:16px; position:relative;
+  background:linear-gradient(180deg,rgba(44,48,92,.97),rgba(22,25,50,.97)); border:var(--line); box-shadow:0 20px 60px rgba(0,0,0,.6), inset 0 0 0 6px rgba(217,191,138,.08);
+  animation:gal-modal-in 260ms var(--ease-back) both; }
+.gal-modal::before,.gal-modal::after{ content:""; position:absolute; top:-1px; width:48px; height:48px; background:url("svg/ornament-corner.svg") center/contain no-repeat; }
+.gal-modal::before{ left:-1px; } .gal-modal::after{ right:-1px; transform:scaleX(-1); }
+.gal-modal h2{ margin:0 0 6px; font:700 28px/1.3 var(--font-serif); letter-spacing:.18em; color:var(--c-gold-hi); }
+.gal-modal p{ margin:14px 0 30px; font:400 20px/1.7 var(--font-sans); color:var(--c-cream); }
+.gal-modal .btns{ display:flex; justify-content:center; gap:28px; }
+.gal-modal .btns .gal-btn{ min-width:200px; }
+
+/* ---------- 6. H 场景柔和模式 / NVL 全屏文字 ---------- */
+.gal-stage.mode-tender{ --tender:1.6; }
+.gal-textbox--tender{
+  background:linear-gradient(180deg,transparent,rgba(18,16,42,calc(var(--window-alpha) * .55)) 35%,rgba(18,16,42,calc(var(--window-alpha) * .7)));
+  border-color:transparent; box-shadow:none; border-radius:0; left:0; right:0; bottom:0; height:280px;
+}
+.gal-textbox--tender::before,.gal-textbox--tender::after,.gal-textbox--tender .tb-shine{ display:none; }
+.gal-textbox--tender .gal-nametag{ left:120px; top:20px; height:40px; min-width:0; padding:0 4px; background:none; border:none; box-shadow:none;
+  border-bottom:2px solid var(--accent); border-radius:0; font-size:24px; }
+.gal-textbox--tender .gal-nametag::after{ display:none; }
+.gal-textbox--tender .gal-text{ top:80px; left:120px; right:120px; font-family:var(--font-serif); font-weight:400; text-shadow:var(--text-shadow-soft); }
+.gal-textbox--tender ~ .gal-quickmenu{ opacity:.45; } .gal-textbox--tender ~ .gal-quickmenu:hover{ opacity:1; }
+.gal-nvl{ position:absolute; inset:0; padding:72px 160px; background:rgba(12,10,28,calc(var(--window-alpha) * .78));
+  font:400 27px/1.95 var(--font-serif); letter-spacing:.06em; color:var(--c-cream); text-shadow:var(--text-shadow-soft); animation:gal-fade-in calc(600ms * var(--tender)) var(--ease-soft) both; }
+.gal-nvl p{ margin:0 0 .4em; text-indent:1em; } .gal-nvl p.is-read{ color:var(--c-text-read); }
+.gal-nvl .nm{ color:var(--accent); margin-right:.3em; }
+
+/* ---------- 7. 演出 FX（时长全部可被 --fx-dur 覆盖；柔和模式 ×var(--tender)） ---------- */
+/* 立绘 */
+.gal-sprite{ position:absolute; bottom:-40px; width:400px; height:680px; transform:translateX(-50%); transition:left calc(var(--d-move) * var(--tender)) var(--ease-std); }
+.gal-sprite .face{ position:absolute; inset:0; background:center bottom/contain no-repeat; }
+.pos-left{ left:300px; } .pos-center{ left:640px; } .pos-right{ left:980px; }  /* FORMAT.md @chara 位置 left/center/right */
+.fx-sprite-in{ animation:gal-sprite-in calc(var(--fx-dur,var(--d-sprite)) * var(--tender)) var(--ease-out) both; }
+.fx-sprite-out{ animation:gal-sprite-out calc(var(--fx-dur,var(--d-sprite)) * var(--tender)) var(--ease-in) both; }
+.fx-expr-in{ animation:gal-fade-in calc(var(--fx-dur,var(--d-expr)) * var(--tender)) linear both; }   /* 新表情层淡入，旧层同时长后移除 */
+.fx-hop{ animation:gal-hop 360ms var(--ease-out); }   /* 立绘小跳（惊讶/开心） */
+.fx-sink{ animation:gal-sink 500ms var(--ease-soft); } /* 立绘下沉（失落/鞠躬） */
+.is-dim{ filter:brightness(.62) saturate(.85); transition:filter 300ms var(--ease-std); } /* 非说话人压暗（可选） */
+/* 通用淡入/淡出/溶解 */
+.fx-fade-in{ animation:gal-fade-in calc(var(--fx-dur) * var(--tender)) var(--ease-std) both; }
+.fx-fade-out{ animation:gal-fade-out calc(var(--fx-dur) * var(--tender)) var(--ease-std) both; }
+.fx-dissolve{ animation:gal-fade-in calc(var(--fx-dur,var(--d-bg)) * var(--tender)) linear both; } /* 新层在旧层上方淡入 */
+/* 转场遮罩层（.gal-fxlayer 覆盖全舞台） */
+.gal-fxlayer{ position:absolute; inset:0; pointer-events:none; opacity:0; }
+.gal-fxlayer.is-black{ background:#000; } .gal-fxlayer.is-white{ background:#fff8ee; } .gal-fxlayer.is-color{ background:var(--flash-color,#fff); } /* @flash color=red|#rrggbb */
+.fx-cover{ animation:gal-fade-in calc(var(--fx-dur) * var(--tender)) var(--ease-in) both; }   /* 进入黑/白场 */
+.fx-uncover{ animation:gal-fade-out calc(var(--fx-dur) * var(--tender)) var(--ease-out) both; } /* 离开黑/白场 */
+.fx-flash{ animation:gal-flash var(--fx-dur,var(--d-flash)) var(--ease-out) both; animation-iteration-count:var(--fx-count,1); } /* 闪屏（不受 tender 影响）；count=n */
+/* 擦除（新画面层用） */
+.fx-wipe-left{ animation:gal-wipe-l var(--fx-dur,var(--d-wipe)) var(--ease-std) both; }
+.fx-wipe-right{ animation:gal-wipe-r var(--fx-dur,var(--d-wipe)) var(--ease-std) both; }
+.fx-wipe-down{ animation:gal-wipe-d var(--fx-dur,var(--d-wipe)) var(--ease-std) both; }
+.fx-wipe-soft{ -webkit-mask-image:linear-gradient(90deg,#000 40%,transparent 60%); mask-image:linear-gradient(90deg,#000 40%,transparent 60%);
+  -webkit-mask-size:300% 100%; mask-size:300% 100%; animation:gal-wipe-soft var(--fx-dur,var(--d-wipe)) var(--ease-std) both; }
+.fx-wipe-iris{ animation:gal-iris var(--fx-dur,var(--d-wipe)) var(--ease-std) both; }
+/* 震屏（加在 .gal-stage 内的 .gal-shake 容器上，不要加在缩放的 stage 本体） */
+.fx-shake-weak{ animation:gal-shake-weak var(--fx-dur,500ms) linear both; }
+.fx-shake-normal{ animation:gal-shake-normal var(--fx-dur,500ms) linear both; }
+.fx-shake-strong{ animation:gal-shake-strong var(--fx-dur,500ms) linear both; }
+.fx-shake-v{ animation:gal-shake-v var(--fx-dur,500ms) linear both; }
+/* CG */
+.fx-cg-in{ animation:gal-cg-in calc(var(--fx-dur,var(--d-cg)) * var(--tender)) var(--ease-soft) both; }
+.fx-cg-diff{ animation:gal-fade-in calc(var(--fx-dur,var(--d-cgdiff)) * var(--tender)) var(--ease-std) both; }
+.fx-breath{ animation:gal-breath 6000ms ease-in-out infinite; }  /* CG 极轻微呼吸缩放（H/抒情场景） */
+/* 心跳暗角（柔和、非闪烁） */
+.gal-heartbeat{ position:absolute; inset:0; pointer-events:none; opacity:0;
+  background:radial-gradient(ellipse at center,transparent 45%,rgba(196,90,134,.32) 100%); }
+.gal-heartbeat.is-on{ animation:gal-heartbeat-veil 1100ms ease-in-out infinite; }
+.gal-vignette{ position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at center,transparent 55%,rgba(6,6,18,.55) 100%); }
+/* 场景标题卡 */
+.gal-titlecard{ position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; }
+.gal-titlecard .band{ width:100%; padding:34px 0 30px; text-align:center;
+  background:linear-gradient(90deg,transparent,rgba(12,14,32,.82) 20%,rgba(12,14,32,.82) 80%,transparent); }
+.gal-titlecard .no{ font:italic 400 18px/1 var(--font-latin); letter-spacing:.5em; color:var(--c-gold); }
+.gal-titlecard .name{ margin-top:14px; font:700 44px/1 var(--font-serif); letter-spacing:.3em; color:var(--c-cream); text-shadow:var(--text-shadow); }
+.gal-titlecard .place{ margin-top:14px; font:400 17px/1 var(--font-sans); letter-spacing:.3em; color:var(--c-rose); }
+.gal-titlecard .band::before,.gal-titlecard .band::after{ content:""; display:block; width:320px; height:20px; margin:0 auto 14px; background:url("svg/ornament-divider.svg") center/contain no-repeat; }
+.gal-titlecard .band::after{ margin:16px auto 0; }
+.gal-titlecard.fx-play{ animation:gal-fade-inout var(--d-title-card) var(--ease-std) both; }
+.gal-titlecard.fx-play .name{ animation:gal-spacing var(--d-title-card) var(--ease-out) both; }
+
+/* ---------- keyframes ---------- */
+@keyframes gal-fade-in{ from{opacity:0} to{opacity:1} }
+@keyframes gal-fade-out{ from{opacity:1} to{opacity:0} }
+@keyframes gal-fade-inout{ 0%{opacity:0} 18%{opacity:1} 82%{opacity:1} 100%{opacity:0} }
+@keyframes gal-spacing{ from{letter-spacing:.6em; opacity:.0} 30%{opacity:1} to{letter-spacing:.3em} }
+@keyframes gal-char-in{ from{opacity:0; filter:blur(1.5px)} to{opacity:1; filter:none} }
+@keyframes gal-wait-bob{ from{transform:translateY(-3px)} to{transform:translateY(4px)} }
+@keyframes gal-wait-page{ 0%,100%{transform:translateY(0) rotate(0)} 50%{transform:translateY(4px) rotate(180deg)} }
+@keyframes gal-blink{ 0%,100%{opacity:1} 50%{opacity:.35} }
+@keyframes gal-title-logo{ from{opacity:0; transform:translateY(16px); filter:blur(6px) drop-shadow(0 6px 18px rgba(0,0,0,.45))} to{opacity:1; transform:none} }
+@keyframes gal-choice-in{ from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none} }
+@keyframes gal-choice-chosen{ 0%{filter:brightness(1.6)} 100%{filter:brightness(1); opacity:0; transform:scale(1.04)} }
+@keyframes gal-qm-pulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+@keyframes gal-screen-in{ from{opacity:0; transform:scale(1.02)} to{opacity:1; transform:none} }
+@keyframes gal-screen-out{ to{opacity:0; transform:scale(.99)} }
+@keyframes gal-modal-in{ from{opacity:0; transform:scale(.92)} to{opacity:1; transform:none} }
+@keyframes gal-toast{ 0%{opacity:0; transform:translateX(24px)} 12%{opacity:1; transform:none} 85%{opacity:1} 100%{opacity:0; transform:translateY(-8px)} }
+@keyframes gal-heartbeat{ 0%,100%{transform:scale(1)} 15%{transform:scale(1.22)} 30%{transform:scale(1)} 45%{transform:scale(1.14)} }
+@keyframes gal-heartbeat-veil{ 0%,100%{opacity:.25} 14%{opacity:.75} 28%{opacity:.35} 42%{opacity:.6} 70%{opacity:.25} }
+@keyframes gal-sprite-in{ from{opacity:0; transform:translateX(-50%) translateY(14px)} to{opacity:1; transform:translateX(-50%)} }
+@keyframes gal-sprite-out{ from{opacity:1; transform:translateX(-50%)} to{opacity:0; transform:translateX(-50%) translateY(8px)} }
+@keyframes gal-hop{ 0%,100%{translate:0 0} 40%{translate:0 -22px} 70%{translate:0 2px} }
+@keyframes gal-sink{ 0%,100%{translate:0 0} 50%{translate:0 18px} }
+@keyframes gal-flash{ 0%{opacity:0} 18%{opacity:.92} 100%{opacity:0} }
+@keyframes gal-wipe-l{ from{clip-path:inset(0 100% 0 0)} to{clip-path:inset(0 0 0 0)} }
+@keyframes gal-wipe-r{ from{clip-path:inset(0 0 0 100%)} to{clip-path:inset(0 0 0 0)} }
+@keyframes gal-wipe-d{ from{clip-path:inset(0 0 100% 0)} to{clip-path:inset(0 0 0 0)} }
+@keyframes gal-wipe-soft{ from{-webkit-mask-position:100% 0; mask-position:100% 0} to{-webkit-mask-position:0 0; mask-position:0 0} }
+@keyframes gal-iris{ from{clip-path:circle(0% at 50% 50%)} to{clip-path:circle(75% at 50% 50%)} }
+@keyframes gal-shake-weak{ 0%,100%{transform:translate(0,0)} 12%{transform:translate(-6px,2px)} 25%{transform:translate(5px,-2px)} 38%{transform:translate(-4px,1px)} 52%{transform:translate(4px,-1px)} 66%{transform:translate(-2px,1px)} 80%{transform:translate(2px,0)} }
+@keyframes gal-shake-normal{ 0%,100%{transform:translate(0,0)} 10%{transform:translate(-11px,4px)} 22%{transform:translate(10px,-5px)} 34%{transform:translate(-8px,3px)} 48%{transform:translate(6px,-2px)} 62%{transform:translate(-4px,2px)} 78%{transform:translate(2px,-1px)} }
+@keyframes gal-shake-strong{ 0%,100%{transform:translate(0,0)} 8%{transform:translate(-18px,8px)} 16%{transform:translate(16px,-10px)} 24%{transform:translate(-14px,6px)} 34%{transform:translate(12px,-6px)} 46%{transform:translate(-9px,4px)} 58%{transform:translate(7px,-3px)} 72%{transform:translate(-4px,2px)} 86%{transform:translate(2px,-1px)} }
+@keyframes gal-shake-v{ 0%,100%{transform:translateY(0)} 15%{transform:translateY(-12px)} 30%{transform:translateY(10px)} 48%{transform:translateY(-6px)} 66%{transform:translateY(4px)} 84%{transform:translateY(-2px)} }
+@keyframes gal-cg-in{ from{opacity:0; transform:scale(1.04)} to{opacity:1; transform:scale(1)} }
+@keyframes gal-breath{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.008)} }
+
+/* ---------- 8. 请横屏 ---------- */
+.gal-rotate{ display:none; position:fixed; inset:0; z-index:9999; flex-direction:column; align-items:center; justify-content:center; gap:28px;
+  padding:env(safe-area-inset-top) 24px env(safe-area-inset-bottom);
+  background:radial-gradient(100% 60% at 50% 30%,#2c3466,#141a33 70%,#0b0e20); color:var(--c-cream); text-align:center; font-family:var(--font-serif); }
+.gal-rotate img:not(.logo){ width:150px; height:150px; animation:gal-rotate-hint 2600ms var(--ease-std) infinite; }
+.gal-rotate .t1{ font-size:26px; font-weight:700; letter-spacing:.3em; text-indent:.3em; color:var(--c-gold-hi); }
+.gal-rotate .t2{ font:400 15px/1.8 var(--font-sans); letter-spacing:.08em; color:var(--c-mute); }
+.gal-rotate .logo{ width:220px; opacity:.85; }
+@keyframes gal-rotate-hint{ 0%,15%{transform:rotate(0)} 45%,75%{transform:rotate(-90deg)} 100%{transform:rotate(0)} }
+@media (orientation:portrait) and (max-width:1024px){
+  .gal-rotate{ display:flex; }
+  .gal-viewport{ visibility:hidden; }
+}
+.gal-rotate.is-forced{ display:flex; } /* 预览用 */
+
+/* ---------- 9. 辅助 ---------- */
+.gal-hidden{ display:none !important; }
+@media (prefers-reduced-motion:reduce){
+  .fx-shake-weak,.fx-shake-normal,.fx-shake-strong,.fx-shake-v,.fx-breath,.gal-heartbeat.is-on{ animation:none !important; }
+}
+
+/* ===== 加载 / 年龄确认 / 命名框 / h_block 占位（第二批） ===== */
+.scr-loading{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px;
+  background:radial-gradient(60% 50% at 50% 40%,#232a55,var(--c-night) 70%); }
+.scr-loading .logo{ width:520px; animation:gal-fade-in 900ms var(--ease-std) both; }
+.scr-loading .cap{ font:600 16px/1 var(--font-latin); letter-spacing:.3em; color:var(--c-gold-hi); }
+.scr-loading .tip{ position:absolute; bottom:40px; font:400 16px/1.6 var(--font-sans); color:var(--c-mute); }
+.gal-progress{ width:520px; height:6px; border-radius:3px; background:rgba(255,255,255,.1); overflow:hidden; }
+.gal-progress i{ display:block; height:100%; width:var(--v,0%); background:linear-gradient(90deg,var(--c-sakura),var(--c-amber)); box-shadow:0 0 10px rgba(240,168,94,.6); transition:width 200ms linear; }
+.gal-modal--form .form-row{ display:flex; gap:28px; justify-content:center; margin:26px 0 6px; }
+.gal-modal--form label{ display:flex; align-items:center; gap:12px; font:600 22px/1 var(--font-serif); color:var(--c-gold-hi); letter-spacing:.1em; }
+.gal-modal--form .hint{ margin:12px 0 26px; font-size:15px; color:var(--c-mute); }
+.gal-input{ width:200px; height:var(--hit-min); padding:0 18px; border-radius:10px; border:1px solid rgba(217,191,138,.55); background:rgba(10,12,30,.7);
+  font:600 28px/1 var(--font-serif); letter-spacing:.12em; color:var(--c-cream); text-align:center; outline:none; transition:border-color var(--d-hover), box-shadow var(--d-hover); }
+.gal-input:focus,.gal-input.is-focus{ border-color:var(--c-amber); box-shadow:0 0 0 3px rgba(240,168,94,.25); }
+.gal-hblock-ph{ font-style:italic; color:var(--c-mute) !important; letter-spacing:.06em; border-left:2px solid rgba(242,184,198,.4); padding-left:14px; }
+
+/* =====================================================================
+   卖点强化（docs/HOOKS.md）：三女主招牌意象 + 名场面效果
+   绫香=珍珠/藤纹（禁忌感） 真琴=眼镜/手表/薄墙（反差感） 雪乃=花/空花瓶/婚戒（被引导感）
+   ===================================================================== */
+:root{
+  --d-dim:600ms; --d-insert:500ms; --d-closeup:1200ms; --d-focus:700ms;
+  --d-lightning:450ms; --d-glow:1500ms; --d-rain:1200ms;
+}
+[data-chara=ayaka],[data-c=ayaka]{ --emblem:url("svg/emblem-pearl.svg"); --motif:url("svg/pattern-wisteria.svg"); }
+[data-chara=makoto],[data-c=makoto]{ --emblem:url("svg/emblem-glasses.svg"); --motif:url("svg/pattern-wall.svg"); }
+[data-chara=yukino],[data-c=yukino]{ --emblem:url("svg/emblem-flower.svg"); --motif:url("svg/pattern-petal.svg"); }
+
+/* 徽记（通用） */
+.gal-emblem{ display:inline-block; width:var(--emb-size,40px); height:var(--emb-size,40px); flex:none; background:var(--emblem) center/contain no-repeat; vertical-align:middle; }
+/* 页签：角色页签前加徽记（CG 鉴赏 / 回想的角色筛选） */
+.gal-tab .gal-emblem{ --emb-size:30px; margin:-4px 8px 0 -6px; opacity:.7; transition:opacity var(--d-hover), transform var(--d-ui) var(--ease-back); }
+.gal-tab.is-selected .gal-emblem,.gal-tab.is-hover .gal-emblem{ opacity:1; transform:scale(1.12) rotate(-6deg); }
+/* CG 格 未解锁：角色底纹 + 大徽记水印 + 小锁 */
+.gal-cg-tile.is-locked[data-c] .art{ background:var(--motif) 0 0/48px repeat, linear-gradient(135deg,#232847,#161a33); }
+.gal-cg-tile.is-locked[data-c]::before{ content:""; position:absolute; z-index:1; left:50%; top:42%; width:88px; height:88px; transform:translate(-50%,-50%); background:var(--emblem) center/contain no-repeat; opacity:.42; filter:saturate(.7); }
+.gal-cg-tile.is-locked[data-c]::after{ left:calc(50% + 32px); top:calc(42% + 30px); width:34px; height:34px; z-index:2; }
+/* CG 格 已解锁：右上角小徽记 */
+.gal-cg-tile[data-c]:not(.is-locked) .cap::before{ content:""; width:22px; height:22px; margin-right:6px; flex:none; background:var(--emblem) center/contain no-repeat; }
+.gal-cg-tile .cap{ align-items:center; }
+.gal-cg-tile .cap > span:first-of-type{ margin-right:auto; }
+/* 回想：缩略图角上徽记；未解锁用底纹 */
+.gal-replay-item .rthumb{ position:relative; }
+.gal-replay-item .rthumb::after{ content:""; position:absolute; right:6px; bottom:6px; width:30px; height:30px; background:var(--emblem) center/contain no-repeat; filter:drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
+.gal-replay-item.is-locked .rthumb{ background:var(--motif) 0 0/48px repeat, linear-gradient(135deg,#232847,#161a33); }
+.gal-replay-item.is-locked .rthumb::after{ width:56px; height:56px; right:50%; bottom:50%; transform:translate(50%,50%); opacity:.45; }
+/* 标题：珍珠垂链 + 三枚徽记（夜樱主题里的招牌意象） */
+.title-pearls{ position:absolute; right:64px; top:112px; width:340px; height:34px; background:url("svg/ornament-pearl-strand.svg") center/contain no-repeat; opacity:.85; pointer-events:none;
+  animation:gal-fade-in 1200ms 600ms var(--ease-out) both; filter:drop-shadow(0 0 6px rgba(255,240,250,.35)); }
+.title-emblems{ position:absolute; left:84px; bottom:76px; display:flex; gap:26px; pointer-events:none; }
+.title-emblems .em{ display:flex; flex-direction:column; align-items:center; gap:8px; font:500 14px/1 var(--font-serif); letter-spacing:.3em; text-indent:.3em; color:var(--accent); opacity:.88; text-shadow:var(--text-shadow); }
+.title-emblems .gal-emblem{ --emb-size:64px; filter:drop-shadow(0 4px 10px rgba(0,0,0,.5)); animation:gal-emblem-glint 7s ease-in-out infinite; }
+.title-emblems .em:nth-child(2) .gal-emblem{ animation-delay:2.3s; } .title-emblems .em:nth-child(3) .gal-emblem{ animation-delay:4.6s; }
+@keyframes gal-emblem-glint{ 0%,86%,100%{ filter:drop-shadow(0 4px 10px rgba(0,0,0,.5)) brightness(1); } 92%{ filter:drop-shadow(0 0 14px rgba(255,255,255,.7)) brightness(1.35); } }
+
+/* ---------- 名场面效果（扩展，指令名待程序组确认，见 UI_SPEC §17.7） ---------- */
+/* 1) 屏息：画面压暗 + 立绘定格（绫香「走廊那头的翻身声」） */
+.gal-shake{ transition:filter calc(var(--d-dim) * var(--tender,1)) var(--ease-soft); }
+.gal-shake.fx-dim{ filter:brightness(var(--dim-level,.62)) saturate(.8); }
+.gal-sprite.fx-freeze,.gal-sprite.fx-freeze *{ animation-play-state:paused !important; }
+.gal-sprite.fx-freeze{ transition:none; filter:saturate(.85); }
+.gal-vignette.is-strong{ background:radial-gradient(ellipse at center,transparent 38%,rgba(4,4,14,.82) 100%); }
+.gal-vignette{ transition:opacity var(--d-dim) var(--ease-soft); }
+/* 2) 特写插入：画面中央的横幅特写（摘项链 / 摘眼镜 / 戒指放在空花瓶旁） */
+.gal-insert{ position:absolute; inset:0; z-index:22; display:grid; place-items:center; background:rgba(5,6,15,.6); pointer-events:none;
+  animation:gal-fade-in var(--d-insert) var(--ease-out) both; }
+.gal-insert .panel{ position:relative; width:960px; height:300px; background:var(--art) center/cover; border-top:1px solid rgba(217,191,138,.8); border-bottom:1px solid rgba(217,191,138,.8);
+  box-shadow:0 0 0 6px rgba(20,26,51,.6),0 20px 60px rgba(0,0,0,.6); animation:gal-insert-in var(--d-insert) var(--ease-out) both; }
+.gal-insert .panel::after{ content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.35),transparent 18%,transparent 82%,rgba(0,0,0,.35)); }
+.gal-insert.is-closing{ animation:gal-fade-out 400ms var(--ease-in) both; }
+@keyframes gal-insert-in{ from{ clip-path:inset(50% 0 50% 0); transform:scale(1.04); } to{ clip-path:inset(0 0 0 0); transform:none; } }
+/* 3) 镜头推近：CG 慢推到 --zx --zy */
+.fx-closeup{ transform-origin:var(--zx,50%) var(--zy,40%); animation:gal-closeup var(--d-closeup) var(--ease-soft) both; }
+@keyframes gal-closeup{ from{ transform:scale(1); } to{ transform:scale(var(--zoom,1.45)); } }
+/* 4) 焦点转移：背景 / 立绘 二选一虚化（摘眼镜后的世界变软） */
+.layer-bg,.layer-sprite,.layer-cg{ transition:filter calc(var(--d-focus) * var(--tender,1)) var(--ease-std); }
+.is-blur{ filter:blur(var(--blur,7px)) brightness(.92); }
+/* 5) 雨幕：两层不同速度；.is-heavy 暴雨；.is-glass 室内隔窗 */
+.gal-rain{ position:absolute; inset:-40px; pointer-events:none; opacity:0; transition:opacity var(--d-rain) var(--ease-soft); }
+.gal-rain.is-on{ opacity:.75; }
+.gal-rain::before,.gal-rain::after{ content:""; position:absolute; inset:0; background:url("svg/rain.svg") 0 0/160px repeat; animation:gal-rain 600ms linear infinite; }
+.gal-rain::after{ background-size:240px; opacity:.6; animation-duration:900ms; filter:blur(.6px); }
+.gal-rain.is-heavy.is-on{ opacity:1; } .gal-rain.is-heavy::before{ animation-duration:380ms; } .gal-rain.is-heavy::after{ animation-duration:560ms; }
+.gal-rain.is-glass.is-on{ opacity:.35; filter:blur(1px); }
+@keyframes gal-rain{ from{ background-position:0 0; } to{ background-position:-40px 160px; } }
+/* 6) 闪电：冷白双闪 + 背景提亮（配 @se thunder） */
+.fx-lightning{ position:absolute; inset:0; pointer-events:none; background:#dfe8ff; mix-blend-mode:screen; animation:gal-lightning var(--d-lightning) linear both; }
+@keyframes gal-lightning{ 0%{opacity:0} 8%{opacity:.85} 20%{opacity:.08} 34%{opacity:.6} 100%{opacity:0} }
+/* 7) 柔光：用光暗示香气（雪乃的晚香玉），屏幕混合 + 缓慢呼吸 */
+.gal-softglow{ position:absolute; inset:0; pointer-events:none; opacity:0; mix-blend-mode:screen; transition:opacity var(--d-glow) var(--ease-soft);
+  background:radial-gradient(40% 50% at var(--gx,62%) var(--gy,42%),rgba(255,214,226,.42),transparent 70%),radial-gradient(70% 60% at 30% 70%,rgba(251,227,180,.18),transparent 70%); }
+.gal-softglow.is-on{ opacity:1; animation:gal-softglow 5s ease-in-out infinite alternate; }
+.layer-bg.is-bloom,.layer-cg.is-bloom{ filter:brightness(1.06) saturate(1.08) contrast(.96); }
+@keyframes gal-softglow{ from{ transform:scale(1); filter:blur(0); } to{ transform:scale(1.04); filter:blur(6px); } }
+/* 8) 闷声标记：音频走低通（引擎实现）；UI 只在开发版显示小角标 */
+.gal-stage[data-muffle="1"] .gal-devbadge-muffle{ display:block; }
+.gal-devbadge-muffle{ display:none; position:absolute; left:16px; top:16px; padding:4px 10px; border-radius:4px; font:600 12px/1.2 var(--font-latin); letter-spacing:.15em; color:var(--c-text-read); background:rgba(20,26,51,.7); border:1px solid rgba(143,179,232,.5); }
+@media (prefers-reduced-motion:reduce){ .gal-rain::before,.gal-rain::after,.gal-softglow.is-on,.title-emblems .gal-emblem{ animation:none; } .fx-lightning{ animation-duration:1ms; } }
+
+/* ---------- 画外 / 隔墙 / 电话 对话框变体（[via=wall|door|phone|off]，待程序组确认） ----------
+   强化：真琴·反差感（隔墙「……我回来了」）／绫香 scene_07 短信／雪乃 scene_07 电话撩拨 */
+.gal-textbox[data-via]{ background:linear-gradient(180deg,rgba(26,30,58,calc(var(--window-alpha) * .78)),rgba(12,14,30,calc(var(--window-alpha) * .92)) 70%); }
+.gal-textbox[data-via] .gal-nametag{ background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 45%,#2a2f52) 0 6px,rgba(18,20,40,.92) 6px,rgba(26,30,58,.92));
+  border-style:dashed; border-color:rgba(169,184,216,.55); color:color-mix(in srgb,var(--c-cream) 78%,var(--accent)); box-shadow:none; }
+.gal-textbox[data-via] .gal-nametag::after{ width:22px; height:22px; transform:none; box-shadow:none; background:var(--via-ico) center/contain no-repeat; }
+.gal-textbox[data-via] .gal-nametag::before{ content:var(--via-label); order:3; margin-left:4px; font:500 13px/1 var(--font-sans); letter-spacing:.2em; color:#a9b8d8; }
+.gal-textbox[data-via] .gal-text{ color:color-mix(in srgb,var(--c-text) 72%,#8a96b8); letter-spacing:.08em; filter:blur(.25px); }
+.gal-textbox[data-via=wall]{ --via-ico:url("svg/via-wall.svg"); --via-label:"隔墙"; }
+.gal-textbox[data-via=door]{ --via-ico:url("svg/via-wall.svg"); --via-label:"门外"; }
+.gal-textbox[data-via=off]{ --via-ico:url("svg/via-wall.svg"); --via-label:"画外"; }
+.gal-textbox[data-via=phone]{ --via-ico:url("svg/via-phone.svg"); --via-label:"电话"; }
+.gal-textbox[data-via=phone] .gal-text{ filter:none; color:color-mix(in srgb,var(--c-text) 85%,#d9bf8a); }
+/* 隔墙句的「墙」：文本框左缘一道竖纹，暗示声音隔着东西传过来 */
+.gal-textbox[data-via=wall]::before{ background:linear-gradient(90deg,transparent 18px,rgba(169,184,216,.25) 18px 20px,transparent 20px 24px,rgba(169,184,216,.18) 24px 26px,transparent 26px); width:40px; height:100%; top:0; }
+.gal-textbox[data-via=wall]::after{ display:none; }
+
+/* ---------- 立绘动作扩展（@chara … act=lean|back|flinch，待程序组确认） ---------- */
+/* lean：凑近一步（雪乃「哎呀，脸红了？」）——放大 + 下沉，保持到 act=back */
+.gal-sprite{ transition:left calc(var(--d-move) * var(--tender)) var(--ease-std), transform 420ms var(--ease-back), filter var(--d-dim) var(--ease-soft); }
+.gal-sprite.is-near{ transform:translateX(-50%) translateY(56px) scale(1.16); }
+/* flinch：只有她的肩膀一僵（绫香 scene_05）——立绘单体微震 + 上提 2px，220ms */
+.fx-flinch{ animation:gal-flinch 260ms var(--ease-out); }
+@keyframes gal-flinch{ 0%{translate:0 0} 15%{translate:-3px -3px} 35%{translate:3px -3px} 55%{translate:-2px -2px} 75%{translate:1px -1px} 100%{translate:0 0} }
+/* blush：一次粉色边缘脉冲（男主脸红 beat），900ms，不闪烁 */
+.fx-blush{ position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen;
+  background:radial-gradient(ellipse at center,transparent 50%,rgba(242,150,178,.38) 100%); animation:gal-blush 900ms var(--ease-soft) both; }
+@keyframes gal-blush{ 0%{opacity:0} 35%{opacity:1} 100%{opacity:0} }
+/* soft：入场柔焦（绫香夜樱初登场）——背景 2px 柔化 + 淡藤色柔光 */
+.layer-bg.is-soft{ filter:blur(2px) brightness(.95); }
+.gal-softglow.is-lavender{ background:radial-gradient(45% 55% at 50% 40%,rgba(200,180,235,.32),transparent 70%),radial-gradient(70% 60% at 50% 80%,rgba(242,184,198,.14),transparent 70%); }
+/* duck：BGM 闪避时的开发版角标（音频由引擎做，UI 不变） */
+.gal-stage[data-duck="1"] .gal-devbadge-muffle{ display:block; }
+
+/* =====================================================================
+   修罗场（三女主同屏）——强化：三人的卖点在同一画面里互相对照
+   ===================================================================== */
+:root{ --ease-swap:cubic-bezier(.55,-.25,.3,1.35); --d-swap:560ms; --d-spot:320ms; --d-spark:1200ms; }
+/* 三人站位：舞台 1280×720，立绘框 400×680，trio 模式缩到 .9（360×612）
+   left 300 / center 640 / right 980（中心点 x），相邻中心距 340 < 360 ⇒ 每侧重叠 20px（肩线轻叠，脸不叠）
+   底边统一 -40px；z：说话人(spot) 4 > center 3 > 最近说过话的 2 > 其他 1 */
+.layer-sprite.is-trio .gal-sprite{ transform:translateX(-50%) scale(var(--trio-scale,.9)); transform-origin:50% 100%;
+  transition:left var(--d-swap) var(--ease-swap), transform var(--d-spot) var(--ease-out), filter var(--d-spot) var(--ease-std); z-index:1; }
+.layer-sprite.is-trio .gal-sprite.pos-center{ z-index:3; }
+.layer-sprite.is-trio .gal-sprite.is-recent{ z-index:2; }
+/* spot：踏前一步的高光（其他人压暗） */
+.layer-sprite.is-trio.has-spot .gal-sprite{ filter:brightness(.58) saturate(.75); }
+.layer-sprite.is-trio .gal-sprite.is-spot{ z-index:4; filter:none; transform:translateX(-50%) translateY(18px) scale(calc(var(--trio-scale,.9) * 1.08));
+ }
+.layer-sprite.is-trio .gal-sprite.is-spot::after{ content:""; position:absolute; left:10%; right:10%; bottom:40px; height:24px; border-radius:50%;
+  background:radial-gradient(ellipse,color-mix(in srgb,var(--accent) 55%,transparent),transparent 70%); filter:blur(4px); }
+/* 抢 C 位：交换 pos-* 类即可，left 用 --ease-swap（先后撤再冲过头一点），被挤走的一方 .is-pushed 小幅下沉 */
+.gal-sprite.is-pushed{ animation:gal-pushed var(--d-swap) var(--ease-out); }
+@keyframes gal-pushed{ 0%,100%{translate:0 0} 40%{translate:0 10px} }
+/* 火花：放在两人之间，x 取两人中心的中点，y=230（眼线高度） */
+.gal-spark{ position:absolute; z-index:5; top:200px; left:var(--sx,470px); width:var(--sw,240px); height:80px; transform:translateX(-50%); pointer-events:none;
+  background:url("svg/spark.svg") center/100% 100% no-repeat; animation:gal-spark var(--d-spark) steps(1,end) both; filter:drop-shadow(0 0 8px rgba(242,184,198,.8)); }
+.gal-spark.is-loop{ animation:gal-spark-loop 900ms steps(1,end) infinite; }
+@keyframes gal-spark{ 0%{opacity:0} 6%{opacity:1; transform:translateX(-50%) scaleY(1)} 18%{transform:translateX(-50%) scaleY(-1)} 30%{transform:translateX(-50%) scaleY(1) scaleX(.94)} 46%{transform:translateX(-50%) scaleY(-1)} 62%{transform:translateX(-50%) scaleY(1)} 80%{opacity:1} 100%{opacity:0} }
+@keyframes gal-spark-loop{ 0%{transform:translateX(-50%) scaleY(1)} 33%{transform:translateX(-50%) scaleY(-1)} 66%{transform:translateX(-50%) scaleY(1) scaleX(.95)} }
+
+/* =====================================================================
+   绫香·危险值（DOC-30）——强化：禁忌感（"被发现"的危险）。HOOKS.md 绫香「走廊那头的翻身声」
+   risk_ayaka 隐藏、不上屏：这里只有演出，没有任何数值 / 计量 UI。
+   data-danger 挂在 .gal-stage：0 平静（risk 0–1，无效果）/ 1 紧张（risk 2）/ 2 危险（risk ≥ th_risk=3，cap 4）
+   ===================================================================== */
+.gal-stage{ --dg-vig:0; --dg-r:62%; }
+.gal-stage[data-danger="1"]{ --dg-vig:.5;  --dg-r:50%; }   /* 紧张：轻暗角 + heartbeat_soft */
+.gal-stage[data-danger="2"]{ --dg-vig:.82; --dg-r:32%; }   /* 危险：收紧暗角 + heartbeat_heavy + 升档 weak 震屏一次 */
+.gal-danger-veil{ position:absolute; inset:0; pointer-events:none; opacity:var(--dg-vig);
+  background:radial-gradient(ellipse at center,transparent var(--dg-r),rgba(8,4,20,.92) 100%);
+  transition:opacity 900ms var(--ease-out), background 900ms var(--ease-out); }
+.gal-stage[data-danger="1"] .gal-danger-veil{ animation:gal-danger-pulse 1400ms ease-in-out infinite; }
+.gal-stage[data-danger="2"] .gal-danger-veil{ animation:gal-danger-pulse 900ms ease-in-out infinite; }
+.gal-stage[data-danger="2"] .layer-bg{ filter:saturate(.75); transition:filter 900ms; }
+@keyframes gal-danger-pulse{ 0%,100%{opacity:var(--dg-vig)} 20%{opacity:calc(var(--dg-vig) + .12)} 40%{opacity:var(--dg-vig)} 55%{opacity:calc(var(--dg-vig) + .07)} }
+/* scene_09「差点被发现」三段：approach → stop → leave（data-near 挂在 .gal-stage；与 data-danger 叠加，取更紧的一侧） */
+.gal-stage[data-near="approach"]{ --dg-vig:.86; --dg-r:26%; }
+.gal-stage[data-near="approach"] .gal-danger-veil{ transition:opacity 2400ms ease-in, background 2400ms ease-in; animation:none; }
+.gal-stage[data-near="stop"]{ --dg-vig:.92; --dg-r:20%; }
+.gal-stage[data-near="stop"] .gal-danger-veil{ transition:opacity 200ms; animation:none; }
+.gal-stage[data-near="stop"] .gal-sprite,.gal-stage[data-near="stop"] .gal-petals{ animation-play-state:paused !important; }
+.gal-stage[data-near="stop"] .layer-bg,.gal-stage[data-near="stop"] .layer-sprite{ filter:saturate(.6) brightness(.85); transition:filter 200ms; }
+.gal-stage[data-near="stop"] .gal-textbox .gal-text::after{ animation-play-state:paused; }  /* 等待光标也停 */
+.gal-stage[data-near="leave"] .gal-danger-veil{ transition:opacity 3200ms var(--ease-out), background 3200ms var(--ease-out); }
+.gal-stage[data-near="leave"] .layer-bg,.gal-stage[data-near="leave"] .layer-sprite{ filter:none; transition:filter 3200ms var(--ease-out); }
+@media (prefers-reduced-motion:reduce){ .gal-danger-veil{ animation:none !important; } }
+
+/* =====================================================================
+   CG 鉴赏 / 回想：差分锁定灰格 + 完成度
+   ===================================================================== */
+.gal-cg-tile .cg-diffs{ position:absolute; z-index:2; right:8px; top:8px; display:flex; gap:4px; }
+.gal-cg-tile .cg-diffs i{ width:20px; height:14px; border-radius:2px; border:1px solid rgba(243,217,164,.75); background:var(--d-art,rgba(242,184,198,.45)) center/cover; }
+.gal-cg-tile .cg-diffs i.is-locked{ border-color:rgba(168,151,159,.5); background:#3a3e55 var(--emblem) center/12px no-repeat; filter:grayscale(1); opacity:.85; }
+.cg-viewer .cg-img.is-locked-diff{ background:#24273a; filter:grayscale(1); }
+.cg-viewer .cg-img.is-locked-diff::before{ content:""; position:absolute; left:50%; top:45%; width:140px; height:140px; transform:translate(-50%,-50%); background:var(--emblem) center/contain no-repeat; opacity:.45; }
+.cg-viewer .cg-img.is-locked-diff::after{ content:"差分未解锁"; position:absolute; left:50%; top:calc(45% + 96px); transform:translateX(-50%); font:500 20px/1 var(--font-serif); letter-spacing:.3em; color:var(--c-mute); }
+.cg-viewer .cg-dots i.locked{ background:#4a4d62; border-color:#6b6e80; }
+/* 完成度：总计 + 每人（页签内小计） */
+.gal-tab .tcnt{ margin-left:6px; font:600 12px/1 var(--font-latin); letter-spacing:.05em; color:var(--c-mute); }
+.gal-tab.is-selected .tcnt{ color:var(--tab-accent,var(--c-gold-hi)); }
+.gal-tab .tcnt.is-complete{ color:var(--c-gold-hi); } .gal-tab .tcnt.is-complete::after{ content:" ✦"; }
+.gal-completion{ display:flex; align-items:center; gap:12px; font:600 18px/1 var(--font-latin); color:var(--c-gold-hi); letter-spacing:.08em; }
+.gal-completion .bar{ position:relative; width:120px; height:6px; border-radius:3px; background:rgba(255,255,255,.12); overflow:hidden; }
+.gal-completion .bar i{ position:absolute; inset:0 auto 0 0; width:var(--v); background:linear-gradient(90deg,var(--c-sakura),var(--c-gold-hi)); }
+.gal-completion small{ color:var(--c-mute); font-size:13px; }
+/* 页签带小计时不换行；页眉内完成度紧凑排版 */
+.gal-tab, .scr-head h1{ white-space:nowrap; }
+.scr-head .gal-tabs{ gap:2px; }
+.scr-head .gal-tab{ padding-left:16px; padding-right:16px; }
+.scr-head .gal-completion{ flex-direction:column; align-items:flex-start; gap:6px; font-size:17px; white-space:nowrap; }
+.scr-head .gal-completion .bar{ width:96px; }
+.scr-head .gal-completion small{ font-size:12px; }
+
+/* ==========================================================================
+   FORMAT v1.1 引擎 DOM 皮肤（src/engine/ui.js · stage.js · default.css 的 class 覆盖）
+   —— 叠加顺序：引擎 default.css → 本文件。只改外观，不改结构。
+   ========================================================================== */
+:root{
+  /* {em}…{/em} 词级强调：樱粉、略放大 */
+  --em-color: var(--c-sakura-hi, #f7c9d4);
+  --em-scale: 1.06;
+  --em-weight: 700;
+  --em-shadow: 0 0 10px rgba(242,184,198,.55);
+  --em-type-slow: 1.4;
+  /* [emph] 句级强调：开头停 360ms、字号 ×1.08、暖白 */
+  --emph-scale: 1.08;
+  --emph-color: #fff6ea;
+  --emph-pause: 360;
+  --emph-type-slow: 1.6;
+  --emph-push: 1.035;
+  --emph-push-time: 900ms;
+  /* @filter softglow：夜樱的淡粉+淡藤（= 演出规范里的 soft / softglow） */
+  --glow-color: rgba(246,214,232,.5);
+  --glow-bright: .08; --glow-sat: .12; --glow-contrast: .06;
+  --filter-blur-max: 8px;
+}
+.gal-textbox.is-emph .gal-text{ text-shadow:0 0 14px rgba(255,236,246,.35), 0 2px 4px rgba(0,0,0,.6); }
+.gal-textbox.is-emph::after{ content:""; position:absolute; left:24px; right:24px; bottom:10px; height:1px; pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(243,217,164,.55),transparent); }
+.gal-filter-glow{ background:radial-gradient(ellipse at 50% 42%, var(--glow-color), transparent 68%),
+  radial-gradient(ellipse at 18% 90%, rgba(184,162,216,.28), transparent 60%), linear-gradient(var(--glow-color), transparent 55%); }
+/* 鉴赏 / 回想 进度行（testid gallery-progress / recall-progress） */
+.scr-progress{ font:500 16px/1.2 var(--font-sans); color:var(--c-mute); letter-spacing:.06em; opacity:1; }
+.scr-progress b{ font:700 22px/1 var(--font-latin); color:var(--c-gold-hi); margin:0 2px; }
+/* 未解锁 CG：灰格 + 女主纹章水印 + 「？」 */
+.gal-cg-tile[data-cg^="ayaka"],.gal-replay-item[data-recall^="ayaka"]{ --emblem:url("svg/emblem-pearl.svg"); }
+.gal-cg-tile[data-cg^="makoto"],.gal-replay-item[data-recall^="makoto"]{ --emblem:url("svg/emblem-glasses.svg"); }
+.gal-cg-tile[data-cg^="yukino"],.gal-replay-item[data-recall^="yukino"]{ --emblem:url("svg/emblem-flower.svg"); }
+.gal-cg-tile.is-locked .art{ background:#3a3e55 var(--emblem,none) center/64px no-repeat; filter:grayscale(1); }
+.gal-cg-tile .lock-q{ font:300 40px/1 var(--font-latin); color:rgba(232,226,236,.45); text-shadow:0 2px 8px rgba(0,0,0,.6); }
+/* 差分小格（引擎 .cg-diff.is-open / .is-locked「？」；demo 同款） */
+.gal-cg-tile .cg-diffs{ right:8px; top:8px; gap:4px; }
+.gal-cg-tile .cg-diff{ width:22px; height:15px; border-radius:2px; border:1px solid rgba(243,217,164,.75); background-color:#3a3e55;
+  background-position:center; background-size:cover; font:600 10px/13px var(--font-latin); text-align:center; color:transparent; }
+.gal-cg-tile .cg-diffs i.cg-diff.is-open{ background-image:var(--d-art,none); }
+.gal-cg-tile .cg-diff.is-locked{ border:1px dashed rgba(168,151,159,.6); background:#3a3e55; color:rgba(232,226,236,.6); filter:none; opacity:.9; }
+/* 开发版变量面板：隐藏变量（risk_ayaka 等）标藤色 */
+.dbg-vars tr.is-hidden td:first-child{ color:#b8a2d8; }
+.dbg-vars tr[data-var="risk_ayaka"] td{ background:rgba(184,162,216,.12); }
+
+/* ==========================================================================
+   外部美术素材挂点（标题主视觉 / 缩略图 / 女主封面 / 锁定格；由美术同事交付到 art/ui/ 下）
+   路径相对本文件（art/ui/ui.css）。文件缺失时多层 background 的那一层不显示，下面的渐变 / 底纹兜底。
+   DOC-24 / HOOK-28：封面意象 = 珍珠（绫香）/ 眼镜（真琴）/ 花（雪乃）
+   ========================================================================== */
+:root{
+  --kv-bg:url("title_kv.webp");               /* 标题主视觉（整幅） */
+  --kv-chars:url("title_kv_chars.webp");      /* 三人透明人物层（可做视差 / 呼吸） */
+}
+.title-keyvisual{ background:var(--kv-img, var(--kv-bg)) center bottom/contain no-repeat,
+  radial-gradient(40% 55% at 50% 58%,rgba(242,184,198,.18),transparent 70%); }
+.title-kv-chars{ position:absolute; left:300px; top:0; width:640px; height:720px; pointer-events:none;
+  background:var(--kv-chars) center bottom/contain no-repeat; animation:gal-kv-breath 9s ease-in-out infinite; }
+@keyframes gal-kv-breath{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-4px) } }
+@media (prefers-reduced-motion:reduce){ .title-kv-chars{ animation:none; } }
+/* 女主封面（鉴赏 / 回想 按人筛选时的页眉横幅、回想分组头） */
+[data-c="ayaka"],[data-chara="ayaka"],[data-filter="ayaka"]{ --cover:url("covers/ayaka_cover.webp"); --cover-fb:linear-gradient(120deg,#3b2f55,#b8a2d8 60%,#efe6f2); --lock-img:url("tiles/locked_ayaka.webp"); }
+[data-c="makoto"],[data-chara="makoto"],[data-filter="makoto"]{ --cover:url("covers/makoto_cover.webp"); --cover-fb:linear-gradient(120deg,#1b2440,#8fb3e8 60%,#dfe8f6); --lock-img:url("tiles/locked_makoto.webp"); }
+[data-c="yukino"],[data-chara="yukino"],[data-filter="yukino"]{ --cover:url("covers/yukino_cover.webp"); --cover-fb:linear-gradient(120deg,#3a1822,#c97a8a 60%,#f6dfe4); --lock-img:url("tiles/locked_yukino.webp"); }
+.gal-cover{ position:relative; height:120px; border-radius:6px; overflow:hidden;
+  background:var(--cover) center 30%/cover no-repeat, var(--cover-fb, linear-gradient(120deg,#232847,#3a3e55)); box-shadow:inset 0 0 0 1px rgba(243,217,164,.35); }
+.gal-cover::after{ content:""; position:absolute; right:14px; bottom:12px; width:56px; height:56px; background:var(--emblem) center/contain no-repeat; filter:drop-shadow(0 2px 6px rgba(0,0,0,.6)); }
+.gal-cover .ttl{ position:absolute; left:20px; bottom:16px; font:600 26px/1 var(--font-serif); letter-spacing:.2em; color:var(--c-cream); text-shadow:var(--text-shadow); }
+/* 缩略图：引擎 / 程序把 --art 设为 thumbs/cg/<cgid>_thumb@2x.webp（无则用全尺寸 CG，再无则渐变） */
+.gal-cg-tile .art{ background:var(--art, var(--cover-fb, linear-gradient(135deg,#2c3466,#e8a46a))) center/cover no-repeat; }
+/* 锁定格：美术交付的 locked 图 → 角色底纹 + 纹章 → 灰 */
+.gal-cg-tile.is-locked .art{ background:var(--lock-img) center/cover no-repeat, var(--emblem,none) center/64px no-repeat, #3a3e55; }
+.gal-replay-item.is-locked .rthumb{ background:var(--lock-img) center/cover no-repeat, var(--motif,none) 0 0/48px repeat, linear-gradient(135deg,#232847,#161a33); }
+/* 引擎 DOM 只有 data-cg / data-recall：按前缀补封面/锁定图变量 */
+.gal-cg-tile[data-cg^="ayaka"],.gal-replay-item[data-recall^="ayaka"]{ --cover-fb:linear-gradient(120deg,#3b2f55,#b8a2d8 60%,#efe6f2); --lock-img:url("tiles/locked_ayaka.webp"); --motif:url("svg/pattern-wisteria.svg"); }
+.gal-cg-tile[data-cg^="makoto"],.gal-replay-item[data-recall^="makoto"]{ --cover-fb:linear-gradient(120deg,#1b2440,#8fb3e8 60%,#dfe8f6); --lock-img:url("tiles/locked_makoto.webp"); --motif:url("svg/pattern-wall.svg"); }
+.gal-cg-tile[data-cg^="yukino"],.gal-replay-item[data-recall^="yukino"]{ --cover-fb:linear-gradient(120deg,#3a1822,#c97a8a 60%,#f6dfe4); --lock-img:url("tiles/locked_yukino.webp"); --motif:url("svg/pattern-petal.svg"); }
+
+/* ==========================================================================
+   美术交付素材接线（11/04 02:40 JST）——全部 url() 相对本文件目录（art/ui/ ⇄ build/assets/ui/）
+   ・引擎在 DOM 上内联写了 --art / background-image（整张 CG）：这里用 !important 覆盖成缩略图，
+     多层 background 的最底层始终是渐变兜底（图缺失时可见）。
+   ・缩略图映射由下面的逐 id 规则提供；新增缩略图后重跑 make_thumbs.py 并补规则（或改由引擎读 recollect_map.json）。
+   ========================================================================== */
+/* 标题：人物透明层 = --kv-img；整幅 title_kv.webp = 静态整屏 / 兜底（data-kv="still"） */
+.title-keyvisual{ --kv-img:url("title_kv_chars.webp") !important;
+  left:250px; top:64px; width:620px; height:656px;
+  background:var(--kv-img) center bottom/contain no-repeat, radial-gradient(40% 55% at 50% 58%,rgba(242,184,198,.18),transparent 70%) !important;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 100%); mask-image:linear-gradient(90deg,transparent,#000 14%,#000 100%); }
+.title-keyvisual.is-placeholder::after{ content:none; }
+.title-kv-chars{ display:none; }   /* 旧的第二人物层：与 --kv-img 重复，停用 */
+.scr-title[data-kv="still"]{ background:url("title_kv.webp") center/cover no-repeat, var(--c-night) url("svg/title-bg.svg") center/cover no-repeat; }
+.scr-title[data-kv="still"] .title-keyvisual{ display:none; }
+.scr-title[data-kv="still"]::before{ content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(90deg,rgba(14,16,36,.55),transparent 40%,transparent 62%,rgba(14,16,36,.7)); }
+
+/* CG 鉴赏格 */
+.gal-cg-tile .art{ background:var(--art) center/cover no-repeat, var(--cover-fb, linear-gradient(135deg,#2c3466,#e8a46a)) !important; }
+.gal-cg-tile[data-cg^="ayaka"] .art,.gal-cg-tile[data-c="ayaka"] .art{ --art:url("thumbs/placeholder/ayaka_placeholder@2x.webp") !important; }
+.gal-cg-tile[data-cg^="makoto"] .art,.gal-cg-tile[data-c="makoto"] .art{ --art:url("thumbs/placeholder/makoto_placeholder@2x.webp") !important; }
+.gal-cg-tile[data-cg^="yukino"] .art,.gal-cg-tile[data-c="yukino"] .art{ --art:url("thumbs/placeholder/yukino_placeholder@2x.webp") !important; }
+.gal-cg-tile[data-cg="ayaka_01"] .art{ --art:url("thumbs/cg/ayaka_01_thumb@2x.webp") !important; }
+.gal-cg-tile[data-cg="ayaka_01_b"] .art{ --art:url("thumbs/cg/ayaka_01_b_thumb@2x.webp") !important; }
+.gal-cg-tile[data-cg="ayaka_01_c"] .art{ --art:url("thumbs/cg/ayaka_01_c_thumb@2x.webp") !important; }
+.gal-cg-tile[data-cg="yukino_01"] .art{ --art:url("thumbs/cg/yukino_01_thumb@2x.webp") !important; }
+.gal-cg-tile[data-cg="yukino_01_b"] .art{ --art:url("thumbs/cg/yukino_01_b_thumb@2x.webp") !important; }
+/* 锁定格：底图 tiles/locked_<chara>.webp（锁由 ::after 画，故不用 locked_tile.webp） */
+.gal-cg-tile.is-locked .art,.gal-cg-tile.is-locked[data-c] .art{ background:var(--lock-img) center/cover no-repeat, #3a3e55 !important; }
+/* ::after 的锁与底图上印的锁对齐（中心 50% / 42.5%，宽 5.2%），两者重合成一个；无图时仍是独立的锁 */
+.gal-cg-tile.is-locked .art,.gal-cg-tile.is-locked[data-c] .art{ filter:none; }
+.gal-cg-tile.is-locked[data-c]::before{ content:none; }   /* 纹章已印在底图上 */
+.gal-cg-tile.is-locked::after,.gal-cg-tile.is-locked[data-c]::after{ left:50%; top:42.5%; width:5.6%; height:auto; aspect-ratio:1; opacity:1; z-index:2; filter:drop-shadow(0 1px 3px rgba(0,0,0,.6)); }
+.gal-cg-tile[data-cg^="ayaka"],.gal-cg-tile[data-c="ayaka"],.gal-replay-item[data-recall^="ayaka"],.gal-replay-item[data-chara="ayaka"]{ --lock-img:url("tiles/locked_ayaka.webp"); --diff-lock:url("tiles/diff_cell_locked_ayaka.webp"); }
+.gal-cg-tile[data-cg^="makoto"],.gal-cg-tile[data-c="makoto"],.gal-replay-item[data-recall^="makoto"],.gal-replay-item[data-chara="makoto"]{ --lock-img:url("tiles/locked_makoto.webp"); --diff-lock:url("tiles/diff_cell_locked_makoto.webp"); }
+.gal-cg-tile[data-cg^="yukino"],.gal-cg-tile[data-c="yukino"],.gal-replay-item[data-recall^="yukino"],.gal-replay-item[data-chara="yukino"]{ --lock-img:url("tiles/locked_yukino.webp"); --diff-lock:url("tiles/diff_cell_locked_yukino.webp"); }
+.gal-cg-tile.is-locked .lock-q{ display:none; }   /* 底图已印「？？？」 */
+/* 差分小格（锁定） */
+.gal-cg-tile .cg-diffs i.is-locked{ background:var(--diff-lock,none) center/cover no-repeat, #3a3e55 !important; filter:none; opacity:.95; font-size:0; color:transparent; }
+/* 查看器：未解锁差分整屏 tiles/locked_diff_<chara>.webp（图里已印纹章与「差分未解锁」，无图时退回 ::before/::after） */
+.cg-viewer .cg-img.is-locked-diff{ background:var(--ldiff, url("tiles/locked_diff.webp")) center/cover no-repeat, #24273a; filter:none; }
+.cg-viewer .cg-img.is-locked-diff::before,.cg-viewer .cg-img.is-locked-diff::after{ content:none; }
+.cg-viewer[data-c="ayaka"],.cg-viewer[data-cg^="ayaka"]{ --ldiff:url("tiles/locked_diff_ayaka.webp"); }
+.cg-viewer[data-c="makoto"],.cg-viewer[data-cg^="makoto"]{ --ldiff:url("tiles/locked_diff_makoto.webp"); }
+.cg-viewer[data-c="yukino"],.cg-viewer[data-cg^="yukino"]{ --ldiff:url("tiles/locked_diff_yukino.webp"); }
+/* 回想缩略图：data-recall → thumbs/recollect/<id>@2x.webp（id 表见 thumbs/recollect_map.json） */
+.gal-replay-item .rthumb{ background:var(--rthumb, var(--art, none)) center/cover no-repeat, var(--cover-fb, linear-gradient(135deg,#232847,#161a33)) !important; }
+.gal-replay-item[data-recall^="ayaka"],.gal-replay-item[data-chara="ayaka"]{ --rthumb:url("thumbs/placeholder/ayaka_placeholder@2x.webp"); }
+.gal-replay-item[data-recall^="makoto"],.gal-replay-item[data-chara="makoto"]{ --rthumb:url("thumbs/placeholder/makoto_placeholder@2x.webp"); }
+.gal-replay-item[data-recall^="yukino"],.gal-replay-item[data-chara="yukino"]{ --rthumb:url("thumbs/placeholder/yukino_placeholder@2x.webp"); }
+.gal-replay-item[data-recall="ayaka_r01"]{ --rthumb:url("thumbs/recollect/ayaka_r01@2x.webp"); }
+.gal-replay-item[data-recall="ayaka_r02"]{ --rthumb:url("thumbs/recollect/ayaka_r02@2x.webp"); }
+.gal-replay-item[data-recall="ayaka_rh01"]{ --rthumb:url("thumbs/recollect/ayaka_rh01@2x.webp"); }
+.gal-replay-item[data-recall="makoto_r01"]{ --rthumb:url("thumbs/recollect/makoto_r01@2x.webp"); }
+.gal-replay-item[data-recall="makoto_r02"]{ --rthumb:url("thumbs/recollect/makoto_r02@2x.webp"); }
+.gal-replay-item[data-recall="makoto_rh01"]{ --rthumb:url("thumbs/recollect/makoto_rh01@2x.webp"); }
+.gal-replay-item[data-recall="yukino_r01"]{ --rthumb:url("thumbs/recollect/yukino_r01@2x.webp"); }
+.gal-replay-item[data-recall="yukino_r02"]{ --rthumb:url("thumbs/recollect/yukino_r02@2x.webp"); }
+.gal-replay-item[data-recall="yukino_rh01"]{ --rthumb:url("thumbs/recollect/yukino_rh01@2x.webp"); }
+.gal-replay-item.is-locked .rthumb{ background:var(--lock-img,none) center/cover no-repeat, var(--motif,none) 0 0/48px repeat, linear-gradient(135deg,#232847,#161a33) !important; }
+.gal-replay-item.is-locked .rthumb::after{ opacity:0; }   /* 底图已有锁和纹章 */
+/* 女主封面：covers/<chara>_cover.webp（--cover，见上方「女主封面」块）；占位缩略图：thumbs/placeholder/<chara>_placeholder@2x.webp */

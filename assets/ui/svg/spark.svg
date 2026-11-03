@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80">
+  <!-- 修罗场：两人之间的「噼啪」火花（喜剧向，不刺眼） -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 40 L40 30 L62 48 L92 22 L118 50 L146 26 L170 46 L198 30 L234 40" stroke="#f2b8c6" stroke-width="5" stroke-opacity=".55"/>
+    <path d="M6 40 L40 30 L62 48 L92 22 L118 50 L146 26 L170 46 L198 30 L234 40" stroke="#fff6e6" stroke-width="2"/>
+  </g>
+  <g fill="#f3d9a4"><path d="M120 10 l3 10 10 3 -10 3 -3 10 -3-10 -10-3 10-3z"/><path d="M60 58 l2 6 6 2 -6 2 -2 6 -2-6 -6-2 6-2z" fill-opacity=".8"/><path d="M186 8 l2 6 6 2 -6 2 -2 6 -2-6 -6-2 6-2z" fill-opacity=".8"/></g>
+</svg>

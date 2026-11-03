@@ -1,0 +1,2471 @@
+{
+  "time": "2026-11-03T17:38:30.677Z",
+  "release": false,
+  "target": "file",
+  "errors": [],
+  "warnings": [
+    {
+      "src": "script/h_blocks/ayaka_h01_NOTES.txt:1",
+      "msg": "h_block 文件「ayaka_h01_notes」没有被任何 @h_block 引用"
+    }
+  ],
+  "missing": [
+    {
+      "kind": "cg",
+      "key": "ayaka_h01",
+      "srcs": [
+        "script/scene_09.txt:117"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "ayaka_h01_a",
+      "srcs": [
+        "script/scene_09.txt:141",
+        "script/scene_09.txt:196"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "ayaka_h01_after",
+      "srcs": [
+        "script/scene_09.txt:248"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "ayaka_h01_after2",
+      "srcs": [
+        "script/scene_09.txt:262"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "ayaka_h01_b",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_02.txt:13"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "ayaka_h01_c",
+      "srcs": [
+        "script/scene_09.txt:149",
+        "script/scene_09.txt:198"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "makoto_h01",
+      "srcs": [
+        "script/scene_11.txt:84"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "makoto_h01_a",
+      "srcs": [
+        "script/scene_11.txt:113"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "makoto_h01_a2",
+      "srcs": [
+        "script/scene_11.txt:106"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "makoto_h01_after",
+      "srcs": [
+        "script/scene_11.txt:152"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "makoto_h01_after2",
+      "srcs": [
+        "script/scene_11.txt:146"
+      ]
+    },
+    {
+      "kind": "cg",
+      "key": "makoto_h01_glasses",
+      "srcs": [
+        "script/scene_11.txt:73"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c01_0001",
+      "srcs": [
+        "script/scene_01.txt:42"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c01_0002",
+      "srcs": [
+        "script/scene_01.txt:45"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c01_0003",
+      "srcs": [
+        "script/scene_01.txt:47"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c01_0004",
+      "srcs": [
+        "script/scene_01.txt:48"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c01_0005",
+      "srcs": [
+        "script/scene_01.txt:54"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c01_0006",
+      "srcs": [
+        "script/scene_01.txt:55"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c01_0007",
+      "srcs": [
+        "script/scene_01.txt:56"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c01_0008",
+      "srcs": [
+        "script/scene_01.txt:58"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c05_0001",
+      "srcs": [
+        "script/scene_05.txt:47"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c05_0002",
+      "srcs": [
+        "script/scene_05.txt:52"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c05_0003",
+      "srcs": [
+        "script/scene_05.txt:60"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c05_0004",
+      "srcs": [
+        "script/scene_05.txt:67"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c05_0005",
+      "srcs": [
+        "script/scene_05.txt:74"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c05_0006",
+      "srcs": [
+        "script/scene_05.txt:77"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c05_0007",
+      "srcs": [
+        "script/scene_05.txt:78"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c05_0008",
+      "srcs": [
+        "script/scene_05.txt:80"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c05_0009",
+      "srcs": [
+        "script/scene_05.txt:101"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0001",
+      "srcs": [
+        "script/scene_06.txt:18"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0002",
+      "srcs": [
+        "script/scene_06.txt:20"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0003",
+      "srcs": [
+        "script/scene_06.txt:21"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0004",
+      "srcs": [
+        "script/scene_06.txt:23"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0005",
+      "srcs": [
+        "script/scene_06b.txt:25"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0006",
+      "srcs": [
+        "script/scene_06b.txt:27"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0007",
+      "srcs": [
+        "script/scene_06b.txt:29"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0008",
+      "srcs": [
+        "script/scene_06b.txt:34"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0009",
+      "srcs": [
+        "script/scene_06b.txt:46"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0010",
+      "srcs": [
+        "script/scene_06b.txt:53"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0011",
+      "srcs": [
+        "script/scene_06b.txt:59"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0012",
+      "srcs": [
+        "script/scene_06b.txt:66"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0013",
+      "srcs": [
+        "script/scene_06b.txt:76"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0014",
+      "srcs": [
+        "script/scene_06b.txt:82"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_c06_0015",
+      "srcs": [
+        "script/scene_06b.txt:88"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0001",
+      "srcs": [
+        "script/scene_08.txt:53"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0002",
+      "srcs": [
+        "script/scene_08.txt:54"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0003",
+      "srcs": [
+        "script/scene_08.txt:58"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0004",
+      "srcs": [
+        "script/scene_08.txt:72"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0005",
+      "srcs": [
+        "script/scene_08.txt:73"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0006",
+      "srcs": [
+        "script/scene_08.txt:76"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0007",
+      "srcs": [
+        "script/scene_08.txt:79"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0008",
+      "srcs": [
+        "script/scene_08.txt:80"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0009",
+      "srcs": [
+        "script/scene_08.txt:85"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0010",
+      "srcs": [
+        "script/scene_08.txt:89"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0011",
+      "srcs": [
+        "script/scene_08.txt:90"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0012",
+      "srcs": [
+        "script/scene_08.txt:91"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0013",
+      "srcs": [
+        "script/scene_08.txt:92"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0014",
+      "srcs": [
+        "script/scene_08.txt:98"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0015",
+      "srcs": [
+        "script/scene_08.txt:100"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0016",
+      "srcs": [
+        "script/scene_08.txt:101"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0017",
+      "srcs": [
+        "script/scene_08.txt:104"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0018",
+      "srcs": [
+        "script/scene_08.txt:106"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0019",
+      "srcs": [
+        "script/scene_08.txt:117"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0020",
+      "srcs": [
+        "script/scene_08.txt:118"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0021",
+      "srcs": [
+        "script/scene_08.txt:119"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0022",
+      "srcs": [
+        "script/scene_08.txt:137"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0023",
+      "srcs": [
+        "script/scene_08.txt:144"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0024",
+      "srcs": [
+        "script/scene_08.txt:159"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0025",
+      "srcs": [
+        "script/scene_08.txt:160"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0026",
+      "srcs": [
+        "script/scene_08.txt:164"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0027",
+      "srcs": [
+        "script/scene_08.txt:169"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0028",
+      "srcs": [
+        "script/scene_08.txt:170"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0029",
+      "srcs": [
+        "script/scene_08.txt:171"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0030",
+      "srcs": [
+        "script/scene_08.txt:21"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0031",
+      "srcs": [
+        "script/scene_08.txt:35"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_e01_0032",
+      "srcs": [
+        "script/scene_08.txt:42"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_ed1_0001",
+      "srcs": [
+        "script/scene_14.txt:29"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_ed1_0002",
+      "srcs": [
+        "script/scene_14.txt:30"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0001",
+      "srcs": [
+        "script/scene_09.txt:31"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0002",
+      "srcs": [
+        "script/scene_09.txt:44"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0003",
+      "srcs": [
+        "script/scene_09.txt:45"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0004",
+      "srcs": [
+        "script/scene_09.txt:65"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0005",
+      "srcs": [
+        "script/scene_09.txt:70"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0006",
+      "srcs": [
+        "script/scene_09.txt:81"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0007",
+      "srcs": [
+        "script/scene_09.txt:86"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0008",
+      "srcs": [
+        "script/scene_09.txt:87"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0009",
+      "srcs": [
+        "script/scene_09.txt:106"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0010",
+      "srcs": [
+        "script/scene_09.txt:107"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0011",
+      "srcs": [
+        "script/scene_09.txt:115"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0012",
+      "srcs": [
+        "script/scene_09.txt:116"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0013",
+      "srcs": [
+        "script/scene_09.txt:120"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0014",
+      "srcs": [
+        "script/scene_09.txt:123"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0015",
+      "srcs": [
+        "script/scene_09.txt:126"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0016",
+      "srcs": [
+        "script/scene_09.txt:145"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0017",
+      "srcs": [
+        "script/scene_09.txt:146"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0018",
+      "srcs": [
+        "script/scene_09.txt:153"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0019",
+      "srcs": [
+        "script/scene_09.txt:200"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0020",
+      "srcs": [
+        "script/scene_09.txt:202"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0021",
+      "srcs": [
+        "script/scene_09.txt:208"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0022",
+      "srcs": [
+        "script/scene_09.txt:236"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0023",
+      "srcs": [
+        "script/scene_09.txt:237"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0024",
+      "srcs": [
+        "script/scene_09.txt:239"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0025",
+      "srcs": [
+        "script/scene_09.txt:240"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0026",
+      "srcs": [
+        "script/scene_09.txt:257"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0027",
+      "srcs": [
+        "script/scene_09.txt:258"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c04_0001",
+      "srcs": [
+        "script/scene_04.txt:16"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c04_0002",
+      "srcs": [
+        "script/scene_04.txt:18"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c04_0003",
+      "srcs": [
+        "script/scene_04.txt:20"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c04_0004",
+      "srcs": [
+        "script/scene_04.txt:21"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c04_0005",
+      "srcs": [
+        "script/scene_04.txt:40"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c04_0006",
+      "srcs": [
+        "script/scene_04.txt:42"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c04_0007",
+      "srcs": [
+        "script/scene_04.txt:43"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c04_0008",
+      "srcs": [
+        "script/scene_04.txt:44"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c04_0009",
+      "srcs": [
+        "script/scene_04.txt:100"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c04_0010",
+      "srcs": [
+        "script/scene_04.txt:101"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c05_0001",
+      "srcs": [
+        "script/scene_05.txt:16"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c05_0002",
+      "srcs": [
+        "script/scene_05.txt:17"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c05_0003",
+      "srcs": [
+        "script/scene_05.txt:24"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c05_0004",
+      "srcs": [
+        "script/scene_05.txt:25"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c05_0005",
+      "srcs": [
+        "script/scene_05.txt:50"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_c05_0006",
+      "srcs": [
+        "script/scene_05.txt:95"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_e01_0001",
+      "srcs": [
+        "script/scene_08.txt:18"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_e01_0002",
+      "srcs": [
+        "script/scene_08.txt:23"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_h01_0001",
+      "srcs": [
+        "script/scene_09.txt:27"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_h01_0002",
+      "srcs": [
+        "script/scene_09.txt:35"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "bucho_h01_0003",
+      "srcs": [
+        "script/scene_09.txt:178"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c01_0001",
+      "srcs": [
+        "script/test/engine_test.txt:20"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c01_0002",
+      "srcs": [
+        "script/test/engine_test.txt:28"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c02_0001",
+      "srcs": [
+        "script/scene_02.txt:22"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c02_0002",
+      "srcs": [
+        "script/scene_02.txt:26"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c02_0003",
+      "srcs": [
+        "script/scene_02.txt:34"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c02_0004",
+      "srcs": [
+        "script/scene_02.txt:35"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c02_0005",
+      "srcs": [
+        "script/scene_02.txt:38"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c02_0006",
+      "srcs": [
+        "script/scene_02.txt:40"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c02_0007",
+      "srcs": [
+        "script/scene_02.txt:45"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c02_0008",
+      "srcs": [
+        "script/scene_02.txt:77"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c04_0001",
+      "srcs": [
+        "script/scene_04.txt:53"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c04_0002",
+      "srcs": [
+        "script/scene_04.txt:72"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c04_0003",
+      "srcs": [
+        "script/scene_04.txt:76"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c04_0004",
+      "srcs": [
+        "script/scene_04.txt:81"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c04_0005",
+      "srcs": [
+        "script/scene_04.txt:86"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c04_0006",
+      "srcs": [
+        "script/scene_04.txt:87"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c04_0007",
+      "srcs": [
+        "script/scene_04.txt:91"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c04_0008",
+      "srcs": [
+        "script/scene_04.txt:93"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c04_0009",
+      "srcs": [
+        "script/scene_04.txt:94"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0001",
+      "srcs": [
+        "script/scene_06.txt:74"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0002",
+      "srcs": [
+        "script/scene_06.txt:76"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0003",
+      "srcs": [
+        "script/scene_06.txt:80"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0004",
+      "srcs": [
+        "script/scene_06.txt:81"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0005",
+      "srcs": [
+        "script/scene_06.txt:85"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0006",
+      "srcs": [
+        "script/scene_06.txt:86"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0007",
+      "srcs": [
+        "script/scene_06b.txt:41"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0008",
+      "srcs": [
+        "script/scene_06b.txt:43"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0009",
+      "srcs": [
+        "script/scene_06b.txt:45"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0010",
+      "srcs": [
+        "script/scene_06b.txt:47"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0011",
+      "srcs": [
+        "script/scene_06b.txt:52"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0012",
+      "srcs": [
+        "script/scene_06b.txt:54"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0013",
+      "srcs": [
+        "script/scene_06b.txt:60"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0014",
+      "srcs": [
+        "script/scene_06b.txt:70"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0015",
+      "srcs": [
+        "script/scene_06b.txt:73"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0016",
+      "srcs": [
+        "script/scene_06b.txt:81"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c06_0017",
+      "srcs": [
+        "script/scene_06b.txt:87"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_c07_0001",
+      "srcs": [
+        "script/scene_07.txt:44"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0001",
+      "srcs": [
+        "script/scene_10.txt:42"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0002",
+      "srcs": [
+        "script/scene_10.txt:43"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0003",
+      "srcs": [
+        "script/scene_10.txt:48"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0004",
+      "srcs": [
+        "script/scene_10.txt:51"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0005",
+      "srcs": [
+        "script/scene_10.txt:63"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0006",
+      "srcs": [
+        "script/scene_10.txt:66"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0007",
+      "srcs": [
+        "script/scene_10.txt:67"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0008",
+      "srcs": [
+        "script/scene_10.txt:68"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0009",
+      "srcs": [
+        "script/scene_10.txt:70"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0010",
+      "srcs": [
+        "script/scene_10.txt:71"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0011",
+      "srcs": [
+        "script/scene_10.txt:72"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0012",
+      "srcs": [
+        "script/scene_10.txt:78"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0013",
+      "srcs": [
+        "script/scene_10.txt:80"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0014",
+      "srcs": [
+        "script/scene_10.txt:83"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0015",
+      "srcs": [
+        "script/scene_10.txt:84"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0016",
+      "srcs": [
+        "script/scene_10.txt:85"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0017",
+      "srcs": [
+        "script/scene_10.txt:89"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0018",
+      "srcs": [
+        "script/scene_10.txt:95"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0019",
+      "srcs": [
+        "script/scene_10.txt:101"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0020",
+      "srcs": [
+        "script/scene_10.txt:103"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0021",
+      "srcs": [
+        "script/scene_10.txt:107"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0022",
+      "srcs": [
+        "script/scene_10.txt:108"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0023",
+      "srcs": [
+        "script/scene_10.txt:120"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0024",
+      "srcs": [
+        "script/scene_10.txt:122"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_e01_0025",
+      "srcs": [
+        "script/scene_10.txt:123"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_ed1_0001",
+      "srcs": [
+        "script/scene_14.txt:61"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_ed1_0002",
+      "srcs": [
+        "script/scene_14.txt:64"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_ed1_0003",
+      "srcs": [
+        "script/scene_14.txt:69"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_ed1_0004",
+      "srcs": [
+        "script/scene_14.txt:70"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_ed1_0005",
+      "srcs": [
+        "script/scene_14.txt:78"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_ed1_0006",
+      "srcs": [
+        "script/scene_14.txt:80"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0001",
+      "srcs": [
+        "script/scene_11.txt:40"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0002",
+      "srcs": [
+        "script/scene_11.txt:42"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0003",
+      "srcs": [
+        "script/scene_11.txt:43"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0004",
+      "srcs": [
+        "script/scene_11.txt:51"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0005",
+      "srcs": [
+        "script/scene_11.txt:52"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0006",
+      "srcs": [
+        "script/scene_11.txt:59"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0007",
+      "srcs": [
+        "script/scene_11.txt:60"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0008",
+      "srcs": [
+        "script/scene_11.txt:61"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0009",
+      "srcs": [
+        "script/scene_11.txt:65"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0010",
+      "srcs": [
+        "script/scene_11.txt:66"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0011",
+      "srcs": [
+        "script/scene_11.txt:81"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0012",
+      "srcs": [
+        "script/scene_11.txt:82"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0013",
+      "srcs": [
+        "script/scene_11.txt:83"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0014",
+      "srcs": [
+        "script/scene_11.txt:88"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0015",
+      "srcs": [
+        "script/scene_11.txt:89"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0016",
+      "srcs": [
+        "script/scene_11.txt:104"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0017",
+      "srcs": [
+        "script/scene_11.txt:108"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0018",
+      "srcs": [
+        "script/scene_11.txt:115"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0019",
+      "srcs": [
+        "script/scene_11.txt:129"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0020",
+      "srcs": [
+        "script/scene_11.txt:130"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0021",
+      "srcs": [
+        "script/scene_11.txt:148"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0022",
+      "srcs": [
+        "script/scene_11.txt:149"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0023",
+      "srcs": [
+        "script/scene_11.txt:150"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0024",
+      "srcs": [
+        "script/scene_11.txt:154"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0025",
+      "srcs": [
+        "script/scene_11.txt:155"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0026",
+      "srcs": [
+        "script/scene_11.txt:156"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0027",
+      "srcs": [
+        "script/scene_11.txt:159"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0028",
+      "srcs": [
+        "script/scene_11.txt:162"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0001",
+      "srcs": [
+        "script/scene_03.txt:16"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0002",
+      "srcs": [
+        "script/scene_03.txt:19"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0003",
+      "srcs": [
+        "script/scene_03.txt:21"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0004",
+      "srcs": [
+        "script/scene_03.txt:29"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0005",
+      "srcs": [
+        "script/scene_03.txt:30"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0006",
+      "srcs": [
+        "script/scene_03.txt:32"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0007",
+      "srcs": [
+        "script/scene_03.txt:37"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0008",
+      "srcs": [
+        "script/scene_03.txt:42"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0009",
+      "srcs": [
+        "script/scene_03.txt:44"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0010",
+      "srcs": [
+        "script/scene_03.txt:46"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0011",
+      "srcs": [
+        "script/scene_03.txt:49"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0012",
+      "srcs": [
+        "script/scene_03.txt:54"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0013",
+      "srcs": [
+        "script/scene_03.txt:55"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0014",
+      "srcs": [
+        "script/scene_03.txt:59"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0015",
+      "srcs": [
+        "script/scene_03.txt:61"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c03_0016",
+      "srcs": [
+        "script/scene_03.txt:62"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0001",
+      "srcs": [
+        "script/scene_06.txt:39"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0002",
+      "srcs": [
+        "script/scene_06.txt:41"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0003",
+      "srcs": [
+        "script/scene_06.txt:42"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0004",
+      "srcs": [
+        "script/scene_06.txt:46"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0005",
+      "srcs": [
+        "script/scene_06.txt:49"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0006",
+      "srcs": [
+        "script/scene_06.txt:50"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0007",
+      "srcs": [
+        "script/scene_06.txt:52"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0008",
+      "srcs": [
+        "script/scene_06.txt:53"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0009",
+      "srcs": [
+        "script/scene_06.txt:62"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0010",
+      "srcs": [
+        "script/scene_06.txt:55"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0011",
+      "srcs": [
+        "script/scene_06b.txt:16"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0012",
+      "srcs": [
+        "script/scene_06b.txt:17"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0013",
+      "srcs": [
+        "script/scene_06b.txt:28"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0014",
+      "srcs": [
+        "script/scene_06b.txt:30"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0015",
+      "srcs": [
+        "script/scene_06b.txt:32"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0016",
+      "srcs": [
+        "script/scene_06b.txt:33"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0017",
+      "srcs": [
+        "script/scene_06b.txt:49"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0018",
+      "srcs": [
+        "script/scene_06b.txt:51"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0019",
+      "srcs": [
+        "script/scene_06b.txt:58"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0020",
+      "srcs": [
+        "script/scene_06b.txt:69"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0021",
+      "srcs": [
+        "script/scene_06b.txt:75"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0022",
+      "srcs": [
+        "script/scene_06b.txt:79"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0023",
+      "srcs": [
+        "script/scene_06b.txt:86"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0024",
+      "srcs": [
+        "script/scene_06b.txt:95"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c06_0025",
+      "srcs": [
+        "script/scene_06b.txt:97"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c07_0001",
+      "srcs": [
+        "script/scene_07.txt:29"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c07_0002",
+      "srcs": [
+        "script/scene_07.txt:31"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c07_0003",
+      "srcs": [
+        "script/scene_07.txt:33"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c07_0004",
+      "srcs": [
+        "script/scene_07.txt:34"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_c07_0005",
+      "srcs": [
+        "script/scene_07.txt:35"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0001",
+      "srcs": [
+        "script/scene_12.txt:25",
+        "script/test/engine_test.txt:91"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0002",
+      "srcs": [
+        "script/scene_12.txt:29"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0003",
+      "srcs": [
+        "script/scene_12.txt:30"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0004",
+      "srcs": [
+        "script/scene_12.txt:32"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0005",
+      "srcs": [
+        "script/scene_12.txt:46"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0006",
+      "srcs": [
+        "script/scene_12.txt:47"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0007",
+      "srcs": [
+        "script/scene_12.txt:51"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0008",
+      "srcs": [
+        "script/scene_12.txt:53"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0009",
+      "srcs": [
+        "script/scene_12.txt:55"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0010",
+      "srcs": [
+        "script/scene_12.txt:67"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0011",
+      "srcs": [
+        "script/scene_12.txt:74"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0012",
+      "srcs": [
+        "script/scene_12.txt:80"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0013",
+      "srcs": [
+        "script/scene_12.txt:94"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0014",
+      "srcs": [
+        "script/scene_12.txt:98"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0015",
+      "srcs": [
+        "script/scene_12.txt:99"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0016",
+      "srcs": [
+        "script/scene_12.txt:100"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0017",
+      "srcs": [
+        "script/scene_12.txt:101"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0018",
+      "srcs": [
+        "script/scene_12.txt:102"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0019",
+      "srcs": [
+        "script/scene_12.txt:104"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0020",
+      "srcs": [
+        "script/scene_12.txt:105"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0021",
+      "srcs": [
+        "script/scene_12.txt:110"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0022",
+      "srcs": [
+        "script/scene_12.txt:112"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0023",
+      "srcs": [
+        "script/scene_12.txt:119"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0024",
+      "srcs": [
+        "script/scene_12.txt:120"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0025",
+      "srcs": [
+        "script/scene_12.txt:123"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0026",
+      "srcs": [
+        "script/scene_12.txt:124"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0027",
+      "srcs": [
+        "script/scene_12.txt:131"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0028",
+      "srcs": [
+        "script/scene_12.txt:132"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0029",
+      "srcs": [
+        "script/scene_12.txt:134"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_e01_0030",
+      "srcs": [
+        "script/scene_12.txt:136"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_ed1_0001",
+      "srcs": [
+        "script/scene_14.txt:96"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_ed1_0002",
+      "srcs": [
+        "script/scene_14.txt:97"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_ed1_0003",
+      "srcs": [
+        "script/scene_14.txt:100"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_ed1_0004",
+      "srcs": [
+        "script/scene_14.txt:101"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0001",
+      "srcs": [
+        "script/scene_13.txt:24"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0002",
+      "srcs": [
+        "script/scene_13.txt:36"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0003",
+      "srcs": [
+        "script/scene_13.txt:37"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0004",
+      "srcs": [
+        "script/scene_13.txt:48"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0005",
+      "srcs": [
+        "script/scene_13.txt:54"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0006",
+      "srcs": [
+        "script/scene_13.txt:63"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0007",
+      "srcs": [
+        "script/scene_13.txt:64"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0008",
+      "srcs": [
+        "script/scene_13.txt:65"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0009",
+      "srcs": [
+        "script/scene_13.txt:67"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0010",
+      "srcs": [
+        "script/scene_13.txt:84"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0011",
+      "srcs": [
+        "script/scene_13.txt:89"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0012",
+      "srcs": [
+        "script/scene_13.txt:100"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0013",
+      "srcs": [
+        "script/scene_13.txt:116"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0014",
+      "srcs": [
+        "script/scene_13.txt:117"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0015",
+      "srcs": [
+        "script/scene_13.txt:122"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0016",
+      "srcs": [
+        "script/scene_13.txt:124"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0017",
+      "srcs": [
+        "script/scene_13.txt:127"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0018",
+      "srcs": [
+        "script/scene_13.txt:49"
+      ]
+    }
+  ],
+  "entry": "script/main.txt",
+  "files": [
+    "script/main.txt",
+    "script/scene_01.txt",
+    "script/scene_02.txt",
+    "script/scene_03.txt",
+    "script/scene_04.txt",
+    "script/scene_05.txt",
+    "script/scene_06.txt",
+    "script/scene_06b.txt",
+    "script/scene_07.txt",
+    "script/scene_08.txt",
+    "script/scene_09.txt",
+    "script/scene_10.txt",
+    "script/scene_11.txt",
+    "script/scene_12.txt",
+    "script/scene_13.txt",
+    "script/scene_14.txt",
+    "script/scene_15.txt",
+    "script/test/engine_test.txt"
+  ],
+  "unused": [
+    {
+      "kind": "bg",
+      "key": "boss_living_night",
+      "file": "art/bg/boss_living_night.webp"
+    },
+    {
+      "kind": "bg",
+      "key": "corridor_day",
+      "file": "art/bg/corridor_day.webp"
+    },
+    {
+      "kind": "bg",
+      "key": "corridor_night",
+      "file": "art/bg/corridor_night.webp"
+    },
+    {
+      "kind": "bg",
+      "key": "room_hero_evening",
+      "file": "art/bg/room_hero_evening.webp"
+    },
+    {
+      "kind": "bg",
+      "key": "room_makoto_evening",
+      "file": "art/bg/room_makoto_evening.webp"
+    },
+    {
+      "kind": "bg",
+      "key": "street_sakura_evening",
+      "file": "art/bg/street_sakura_evening.webp"
+    },
+    {
+      "kind": "bg",
+      "key": "washitsu_night",
+      "file": "art/bg/washitsu_night.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "v2a",
+      "file": "art/sprites/ayaka/iter/v2a.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "v3a",
+      "file": "art/sprites/ayaka/iter/v3a.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "ayaka_kimono_sad",
+      "file": "art/sprites/ayaka_kimono_sad.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "suit_base",
+      "file": "art/sprites/bucho/iter/suit_base.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "vest_base",
+      "file": "art/sprites/bucho/iter/vest_base.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "bucho_vest_normal",
+      "file": "art/sprites/bucho_vest_normal.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "bucho_vest_tired",
+      "file": "art/sprites/bucho_vest_tired.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "v3b",
+      "file": "art/sprites/makoto/iter/v3b.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "makoto_suit_sad",
+      "file": "art/sprites/makoto_suit_sad.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "v3b_robe",
+      "file": "art/sprites/yukino/iter/v3b_robe.png"
+    },
+    {
+      "kind": "sprite",
+      "key": "yukino_robe_sad",
+      "file": "art/sprites/yukino_robe_sad.webp"
+    },
+    {
+      "kind": "sprite",
+      "key": "yukino_robe_serious",
+      "file": "art/sprites/yukino_robe_serious.webp"
+    },
+    {
+      "kind": "cg",
+      "key": "yukino_h01_b",
+      "file": "art/cg/yukino_h01_b.webp"
+    },
+    {
+      "kind": "bgm",
+      "key": "ambiguous",
+      "file": "audio/bgm/ambiguous.ogg"
+    },
+    {
+      "kind": "bgm",
+      "key": "title",
+      "file": "audio/bgm/title.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "cancel",
+      "file": "audio/se/cancel.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "click",
+      "file": "audio/se/click.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "decide",
+      "file": "audio/se/decide.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "error",
+      "file": "audio/se/error.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "load",
+      "file": "audio/se/load.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "menu_close",
+      "file": "audio/se/menu_close.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "menu_open",
+      "file": "audio/se/menu_open.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "page",
+      "file": "audio/se/page.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "save",
+      "file": "audio/se/save.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "select",
+      "file": "audio/se/select.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "spark",
+      "file": "audio/se/spark.ogg"
+    },
+    {
+      "kind": "se",
+      "key": "transition_whoosh",
+      "file": "audio/se/transition_whoosh.ogg"
+    },
+    {
+      "kind": "voice",
+      "key": "blip_ayaka",
+      "file": "audio/voice/blip_ayaka.ogg"
+    },
+    {
+      "kind": "voice",
+      "key": "blip_bucho",
+      "file": "audio/voice/blip_bucho.ogg"
+    },
+    {
+      "kind": "voice",
+      "key": "blip_makoto",
+      "file": "audio/voice/blip_makoto.ogg"
+    },
+    {
+      "kind": "voice",
+      "key": "blip_yukino",
+      "file": "audio/voice/blip_yukino.ogg"
+    }
+  ],
+  "createdHb": []
+}

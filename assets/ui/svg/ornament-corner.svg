@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#d9bf8a" stroke-linecap="round">
+  <!-- 窗框角饰（左上方向，其他角用 CSS scale(-1) 翻转） -->
+  <path d="M3 45V17Q3 3 17 3H45" stroke-width="1.6"/>
+  <path d="M9 40V20Q9 9 20 9H40" stroke-width="1" opacity=".6"/>
+  <path d="M15 22q0-7 7-7m-4 7q0-3 3-3" stroke-width="1.2"/>
+  <path d="M3 3l3.5 3.5L3 10 -.5 6.5z" fill="#ecc98a" stroke="none" transform="translate(2 2)"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- CG/回想 未解锁锁头（彩色版） -->
+  <defs><linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3d9a4"/><stop offset="1" stop-color="#b9813f"/></linearGradient></defs>
+  <circle cx="32" cy="32" r="30" fill="#141a33" fill-opacity=".7" stroke="#d9bf8a" stroke-opacity=".5"/>
+  <path d="M23 29v-6a9 9 0 0 1 18 0v6" fill="none" stroke="url(#b)" stroke-width="4" stroke-linecap="round"/>
+  <rect x="18" y="28" width="28" height="20" rx="4" fill="url(#b)"/>
+  <circle cx="32" cy="36" r="3" fill="#3a2230"/><rect x="30.6" y="37" width="2.8" height="6" rx="1.2" fill="#3a2230"/>
+</svg>
