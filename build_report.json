@@ -1,22 +1,9 @@
 {
-  "time": "2026-11-03T17:48:16.413Z",
+  "time": "2026-11-03T17:53:10.515Z",
   "release": false,
   "target": "file",
   "errors": [],
-  "warnings": [
-    {
-      "src": "script/h_blocks/ayaka_h01_NOTES.txt:1",
-      "msg": "h_block 文件「ayaka_h01_notes」没有被任何 @h_block 引用"
-    },
-    {
-      "src": "script/h_blocks/makoto_h01_NOTES.txt:1",
-      "msg": "h_block 文件「makoto_h01_notes」没有被任何 @h_block 引用"
-    },
-    {
-      "src": "script/h_blocks/yukino_h01_NOTES.txt:1",
-      "msg": "h_block 文件「yukino_h01_notes」没有被任何 @h_block 引用"
-    }
-  ],
+  "warnings": [],
   "missing": [
     {
       "kind": "voice",
@@ -667,6 +654,132 @@
       "key": "ayaka_h01_0027",
       "srcs": [
         "script/scene_09.txt:258"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0028",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_01.txt:5"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0029",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_01.txt:11"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0030",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_01.txt:13"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0031",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_01.txt:16"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0032",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_01.txt:20"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0033",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_01.txt:26"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0034",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_02.txt:3"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0035",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_02.txt:5"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0036",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_02.txt:8"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0037",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_02.txt:11"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0038",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_02.txt:17"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0039",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_02.txt:20"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0040",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_02.txt:24"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0041",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_02.txt:25"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0042",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_02.txt:27"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0043",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_03.txt:4"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0044",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_03.txt:8"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "ayaka_h01_0045",
+      "srcs": [
+        "script/h_blocks/ayaka_h01_03.txt:13"
       ]
     },
     {
@@ -1490,6 +1603,223 @@
     },
     {
       "kind": "voice",
+      "key": "makoto_h01_0029",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:22"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0030",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:25"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0031",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:26"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0032",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:31"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0033",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:33"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0034",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:36"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0035",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:39"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0036",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:41"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0037",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:46"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0038",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:48"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0039",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:52"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0040",
+      "srcs": [
+        "script/h_blocks/makoto_h01_01.txt:54"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0041",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:15"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0042",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:18"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0043",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:21"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0044",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:25"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0045",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:27"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0046",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:35"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0047",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:36"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0048",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:38"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0049",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:46"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0050",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:48"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0051",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:52"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0052",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:53"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0053",
+      "srcs": [
+        "script/h_blocks/makoto_h01_02.txt:54"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0054",
+      "srcs": [
+        "script/h_blocks/makoto_h01_03.txt:14"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0055",
+      "srcs": [
+        "script/h_blocks/makoto_h01_03.txt:17"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0056",
+      "srcs": [
+        "script/h_blocks/makoto_h01_03.txt:18"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0057",
+      "srcs": [
+        "script/h_blocks/makoto_h01_03.txt:20"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0058",
+      "srcs": [
+        "script/h_blocks/makoto_h01_03.txt:27"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "makoto_h01_0059",
+      "srcs": [
+        "script/h_blocks/makoto_h01_03.txt:29"
+      ]
+    },
+    {
+      "kind": "voice",
       "key": "yukino_c03_0001",
       "srcs": [
         "script/scene_03.txt:16"
@@ -2170,9 +2500,205 @@
     },
     {
       "kind": "voice",
+      "key": "yukino_h01_0018",
+      "srcs": [
+        "script/h_blocks/yukino_h01_01.txt:19"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0019",
+      "srcs": [
+        "script/h_blocks/yukino_h01_01.txt:28"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0020",
+      "srcs": [
+        "script/h_blocks/yukino_h01_01.txt:30"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0021",
+      "srcs": [
+        "script/h_blocks/yukino_h01_01.txt:34"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0022",
+      "srcs": [
+        "script/h_blocks/yukino_h01_01.txt:37"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0023",
+      "srcs": [
+        "script/h_blocks/yukino_h01_01.txt:39"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0024",
+      "srcs": [
+        "script/h_blocks/yukino_h01_01.txt:42"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0025",
+      "srcs": [
+        "script/h_blocks/yukino_h01_01.txt:48"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0026",
+      "srcs": [
+        "script/h_blocks/yukino_h01_01.txt:49"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0027",
+      "srcs": [
+        "script/h_blocks/yukino_h01_01.txt:53"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0028",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:12"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0029",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:15"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0030",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:16"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0031",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:21"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0032",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:23"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0033",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:26"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0034",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:33"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0035",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:36"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0036",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:37"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0037",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:41"
+      ]
+    },
+    {
+      "kind": "voice",
       "key": "yukino_h01_0038",
       "srcs": [
         "script/scene_13.txt:49"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0039",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:43"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0040",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:46"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0041",
+      "srcs": [
+        "script/h_blocks/yukino_h01_02.txt:47"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0042",
+      "srcs": [
+        "script/h_blocks/yukino_h01_03.txt:13"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0043",
+      "srcs": [
+        "script/h_blocks/yukino_h01_03.txt:18"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0044",
+      "srcs": [
+        "script/h_blocks/yukino_h01_03.txt:22"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0045",
+      "srcs": [
+        "script/h_blocks/yukino_h01_03.txt:29"
+      ]
+    },
+    {
+      "kind": "voice",
+      "key": "yukino_h01_0046",
+      "srcs": [
+        "script/h_blocks/yukino_h01_03.txt:31"
       ]
     }
   ],
@@ -2217,6 +2743,11 @@
       "kind": "bg",
       "key": "room_hero_evening",
       "file": "art/bg/room_hero_evening.webp"
+    },
+    {
+      "kind": "bg",
+      "key": "room_hero_night_tidy_wall_nolily",
+      "file": "art/bg/room_hero_night_tidy_wall_nolily.webp"
     },
     {
       "kind": "bg",
