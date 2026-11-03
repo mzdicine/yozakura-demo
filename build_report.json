@@ -1,5 +1,5 @@
 {
-  "time": "2026-11-03T17:38:30.677Z",
+  "time": "2026-11-03T17:48:16.413Z",
   "release": false,
   "target": "file",
   "errors": [],
@@ -7,95 +7,17 @@
     {
       "src": "script/h_blocks/ayaka_h01_NOTES.txt:1",
       "msg": "h_block 文件「ayaka_h01_notes」没有被任何 @h_block 引用"
+    },
+    {
+      "src": "script/h_blocks/makoto_h01_NOTES.txt:1",
+      "msg": "h_block 文件「makoto_h01_notes」没有被任何 @h_block 引用"
+    },
+    {
+      "src": "script/h_blocks/yukino_h01_NOTES.txt:1",
+      "msg": "h_block 文件「yukino_h01_notes」没有被任何 @h_block 引用"
     }
   ],
   "missing": [
-    {
-      "kind": "cg",
-      "key": "ayaka_h01",
-      "srcs": [
-        "script/scene_09.txt:117"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "ayaka_h01_a",
-      "srcs": [
-        "script/scene_09.txt:141",
-        "script/scene_09.txt:196"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "ayaka_h01_after",
-      "srcs": [
-        "script/scene_09.txt:248"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "ayaka_h01_after2",
-      "srcs": [
-        "script/scene_09.txt:262"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "ayaka_h01_b",
-      "srcs": [
-        "script/h_blocks/ayaka_h01_02.txt:13"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "ayaka_h01_c",
-      "srcs": [
-        "script/scene_09.txt:149",
-        "script/scene_09.txt:198"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "makoto_h01",
-      "srcs": [
-        "script/scene_11.txt:84"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "makoto_h01_a",
-      "srcs": [
-        "script/scene_11.txt:113"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "makoto_h01_a2",
-      "srcs": [
-        "script/scene_11.txt:106"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "makoto_h01_after",
-      "srcs": [
-        "script/scene_11.txt:152"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "makoto_h01_after2",
-      "srcs": [
-        "script/scene_11.txt:146"
-      ]
-    },
-    {
-      "kind": "cg",
-      "key": "makoto_h01_glasses",
-      "srcs": [
-        "script/scene_11.txt:73"
-      ]
-    },
     {
       "kind": "voice",
       "key": "ayaka_c01_0001",
@@ -2159,96 +2081,96 @@
       "kind": "voice",
       "key": "yukino_h01_0005",
       "srcs": [
-        "script/scene_13.txt:54"
+        "script/scene_13.txt:56"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0006",
       "srcs": [
-        "script/scene_13.txt:63"
+        "script/scene_13.txt:68"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0007",
       "srcs": [
-        "script/scene_13.txt:64"
+        "script/scene_13.txt:69"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0008",
       "srcs": [
-        "script/scene_13.txt:65"
+        "script/scene_13.txt:70"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0009",
       "srcs": [
-        "script/scene_13.txt:67"
+        "script/scene_13.txt:72"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0010",
       "srcs": [
-        "script/scene_13.txt:84"
+        "script/scene_13.txt:89"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0011",
       "srcs": [
-        "script/scene_13.txt:89"
+        "script/scene_13.txt:94"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0012",
       "srcs": [
-        "script/scene_13.txt:100"
+        "script/scene_13.txt:104"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0013",
       "srcs": [
-        "script/scene_13.txt:116"
+        "script/scene_13.txt:120"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0014",
       "srcs": [
-        "script/scene_13.txt:117"
+        "script/scene_13.txt:121"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0015",
       "srcs": [
-        "script/scene_13.txt:122"
+        "script/scene_13.txt:126"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0016",
       "srcs": [
-        "script/scene_13.txt:124"
+        "script/scene_13.txt:128"
       ]
     },
     {
       "kind": "voice",
       "key": "yukino_h01_0017",
       "srcs": [
-        "script/scene_13.txt:127"
+        "script/scene_13.txt:131"
       ]
     },
     {
       "kind": "voice",
-      "key": "yukino_h01_0018",
+      "key": "yukino_h01_0038",
       "srcs": [
         "script/scene_13.txt:49"
       ]
@@ -2370,11 +2292,6 @@
       "kind": "sprite",
       "key": "yukino_robe_serious",
       "file": "art/sprites/yukino_robe_serious.webp"
-    },
-    {
-      "kind": "cg",
-      "key": "yukino_h01_b",
-      "file": "art/cg/yukino_h01_b.webp"
     },
     {
       "kind": "bgm",
