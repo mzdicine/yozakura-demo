@@ -1,5 +1,5 @@
 {
-  "time": "2026-11-04T01:29:19.837Z",
+  "time": "2026-11-04T01:32:07.274Z",
   "release": true,
   "target": "web",
   "errors": [],
@@ -4219,18 +4219,8 @@
   "unused": [
     {
       "kind": "bg",
-      "key": "apt_corridor_night_green",
-      "file": "art/bg/apt_corridor_night_green.webp"
-    },
-    {
-      "kind": "bg",
-      "key": "apt_front_day_green",
-      "file": "art/bg/apt_front_day_green.webp"
-    },
-    {
-      "kind": "bg",
-      "key": "apt_front_night_green",
-      "file": "art/bg/apt_front_night_green.webp"
+      "key": "apt_front_day",
+      "file": "art/bg/apt_front_day.webp"
     },
     {
       "kind": "bg",
@@ -4249,8 +4239,8 @@
     },
     {
       "kind": "bg",
-      "key": "flower_shop_night_green",
-      "file": "art/bg/flower_shop_night_green.webp"
+      "key": "flower_shop_night",
+      "file": "art/bg/flower_shop_night.webp"
     },
     {
       "kind": "bg",
@@ -4259,8 +4249,13 @@
     },
     {
       "kind": "bg",
-      "key": "room_hero_night_tidy_green",
-      "file": "art/bg/room_hero_night_tidy_green.webp"
+      "key": "room_hero_night_tidy",
+      "file": "art/bg/room_hero_night_tidy.webp"
+    },
+    {
+      "kind": "bg",
+      "key": "room_hero_night_tidy_wall_green",
+      "file": "art/bg/room_hero_night_tidy_wall_green.png"
     },
     {
       "kind": "bg",
@@ -4274,8 +4269,8 @@
     },
     {
       "kind": "bg",
-      "key": "room_yukino_night_twovases_green",
-      "file": "art/bg/room_yukino_night_twovases_green.webp"
+      "key": "room_yukino_night_twovases",
+      "file": "art/bg/room_yukino_night_twovases.webp"
     },
     {
       "kind": "bg",
