@@ -1,5 +1,5 @@
 {
-  "time": "2026-11-03T19:08:32.116Z",
+  "time": "2026-11-04T00:41:34.143Z",
   "release": true,
   "target": "web",
   "errors": [],
@@ -4386,6 +4386,36 @@
       "kind": "sprite",
       "key": "yukino_robering_shy",
       "file": "art/sprites/yukino_robering_shy.webp"
+    },
+    {
+      "kind": "cg",
+      "key": "ayaka_02",
+      "file": "art/cg/ayaka_02.webp"
+    },
+    {
+      "kind": "cg",
+      "key": "ayaka_h01_nm",
+      "file": "art/cg/ayaka_h01_nm.webp"
+    },
+    {
+      "kind": "cg",
+      "key": "makoto_02",
+      "file": "art/cg/makoto_02.webp"
+    },
+    {
+      "kind": "cg",
+      "key": "shura_01",
+      "file": "art/cg/shura_01.webp"
+    },
+    {
+      "kind": "cg",
+      "key": "trio_06",
+      "file": "art/cg/trio_06.webp"
+    },
+    {
+      "kind": "cg",
+      "key": "yukino_02",
+      "file": "art/cg/yukino_02.webp"
     },
     {
       "kind": "bgm",
