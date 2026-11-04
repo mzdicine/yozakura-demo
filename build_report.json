@@ -1,5 +1,5 @@
 {
-  "time": "2026-11-04T01:32:07.274Z",
+  "time": "2026-11-04T01:33:37.031Z",
   "release": true,
   "target": "web",
   "errors": [],
@@ -4254,8 +4254,8 @@
     },
     {
       "kind": "bg",
-      "key": "room_hero_night_tidy_wall_green",
-      "file": "art/bg/room_hero_night_tidy_wall_green.png"
+      "key": "room_hero_night_tidy_wall",
+      "file": "art/bg/room_hero_night_tidy_wall.webp"
     },
     {
       "kind": "bg",
