@@ -1,26 +1,9 @@
 {
-  "time": "2026-11-04T03:43:46.286Z",
+  "time": "2026-11-04T04:32:18.588Z",
   "release": true,
   "target": "web",
   "errors": [],
-  "warnings": [
-    {
-      "src": "script/pilot_makoto/pm_ed.txt:36",
-      "msg": "表情「flusteredmax」不在 makoto 的表情表中"
-    },
-    {
-      "src": "script/pilot_makoto/pm_m1.txt:44",
-      "msg": "表情「smug」不在 makoto 的表情表中"
-    },
-    {
-      "src": "script/pilot_makoto/pm_m2.txt:47",
-      "msg": "表情「smug」不在 makoto 的表情表中"
-    },
-    {
-      "src": "script/pilot_makoto/pm_m3.txt:21",
-      "msg": "表情「smug」不在 makoto 的表情表中"
-    }
-  ],
+  "warnings": [],
   "missing": [
     {
       "kind": "voice",
@@ -1839,8 +1822,8 @@
       "kind": "voice",
       "key": "makoto_h01_0050",
       "srcs": [
-        "script/h_blocks/makoto_h01_02.txt:63",
-        "script/h_blocks/makoto_h01_02.txt:63"
+        "script/h_blocks/makoto_h01_02.txt:64",
+        "script/h_blocks/makoto_h01_02.txt:64"
       ]
     },
     {
