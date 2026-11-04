@@ -171,7 +171,7 @@
   font:italic 400 14px/1 var(--font-latin); letter-spacing:.3em; color:rgba(242,184,198,.35); white-space:nowrap; }
 .scr-title .title-logo{ position:absolute; left:56px; top:48px; width:600px; filter:drop-shadow(0 6px 18px rgba(0,0,0,.45));
   animation:gal-title-logo 1600ms var(--ease-out) both; }
-.title-menu{ position:absolute; right:64px; top:152px; width:340px; display:flex; flex-direction:column; }
+.title-menu{ position:absolute; right:64px; top:128px; /* 11/04 结衣：6 项后整体上移 24px（原 152） */ width:340px; display:flex; flex-direction:column; gap:0; } /* 11/04 结衣：行距 98→88（−10，hit-min 不变） */
 .title-btn{
   position:relative; height:var(--hit-min); width:100%; border:none; background:transparent; cursor:pointer;
   font:600 var(--fs-title-btn)/1 var(--font-serif); letter-spacing:.42em; text-indent:.42em; color:var(--c-cream);
@@ -497,7 +497,8 @@
 .gal-modal .btns .gal-btn{ min-width:200px; }
 
 /* ---------- 6. H 场景柔和模式 / NVL 全屏文字 ---------- */
-.gal-stage.mode-tender{ --tender:1.6; }
+.gal-stage{ --tender-time-k:1; }
+.gal-stage.mode-tender{ --tender:1.6; --tender-time-k:1.25; }  /* 引擎在 h_block tender 内把 @wait/@flash/@zoom/@filter 时长 × 此值（STAGING §16.1 / UI_SPEC §22.9） */
 .gal-textbox--tender{
   background:linear-gradient(180deg,transparent,rgba(18,16,42,calc(var(--window-alpha) * .55)) 35%,rgba(18,16,42,calc(var(--window-alpha) * .7)));
   border-color:transparent; box-shadow:none; border-radius:0; left:0; right:0; bottom:0; height:280px;
@@ -1331,3 +1332,101 @@
 .gal-modal .rb-group .rb-opt.is-unseen[data-group="towel"],.gal-modal .rb-group .rb-opt.is-unseen[data-group="sign"],.gal-modal .rb-group .rb-opt.is-unseen[data-group="lead"]{
   --rb-thumb:url("svg/rain.svg"); background:url("svg/rain.svg") center 8px/120px repeat-x, repeating-linear-gradient(135deg,rgba(40,42,66,.85) 0 8px,rgba(34,36,58,.85) 8px 16px); }
 /* ▲▲▲ 隐藏三人线 demo_trio END ▲▲▲ */
+
+/* ▼▼▼ nukige 试点：CG 呼吸 + 葵 FINAL 钩子（结衣 11/04 11:2x JST；UI_SPEC §22） ▼▼▼ */
+/* ---- B) CG 呼吸：只在 H 块（.mode-tender）里；用独立的 scale / translate 属性放在内层 .gal-cg 上，
+        不碰 .layer-cg 的 transform/scale/translate（@shake / @zoom target=cg 用它们） ---- */
+@keyframes gal-cg-breath{ from{ scale:1; translate:0 2px; } to{ scale:1.008; translate:0 -2px; } }
+.gal-stage.mode-tender .layer-cg .gal-cg{ animation:gal-cg-breath 3.5s ease-in-out infinite alternate; transform-origin:50% 60%; }
+/* 设置 cgBreath=off → 葵在舞台根（.layer-cg 的祖先）写 data-cg-breath="off" */
+[data-cg-breath="off"] .layer-cg .gal-cg,[data-cg-breath="off"] .layer-cg{ animation:none !important; }
+[data-cg-breath="off"] .layer-cg .gal-cg{ scale:none; translate:none; }
+@media (prefers-reduced-motion:reduce){ .gal-stage.mode-tender .layer-cg .gal-cg{ animation:none; scale:none; translate:none; } }
+/* 差分切换（.fx-cg-diff 用 opacity 动画）与呼吸动画不冲突：呼吸只写 scale/translate */
+
+/* ---- C1) 标题「H 场景」按钮：.title-btn[data-act="hscene"]（testid title-hscene；沿用回想按钮 .gal-recall 样式） ---- */
+.title-btn.gal-recall[data-testid="title-hscene"] .sub,.title-btn[data-act="hscene"] .sub{ color:#e3b7c2; }
+.title-btn[data-act="hscene"] .lbl::before,.title-btn[data-act="hscene"] .lbl::after{ color:#d99aa8; }
+.title-btn.gal-recall[data-testid="title-hscene"]:disabled,.title-btn[data-act="hscene"]:disabled{ opacity:.38; cursor:default; }
+
+/* ---- C2) 回想页签：.recall-tabs > .rt-tab[data-c]，当前 .is-on；顺序 绫香 → 真琴 → 雪乃 → 修罗场(shura) → 真琴×雪乃(trio)；普通回想共用 ---- */
+.recall-tabs{ display:flex; gap:2px; flex-wrap:nowrap; }
+.recall-tabs > .rt-tab{ position:relative; height:52px; min-width:120px; padding:0 16px; border:none; background:transparent; cursor:pointer; white-space:nowrap;
+  font:600 var(--fs-ui)/1 var(--font-serif); letter-spacing:.12em; color:var(--c-mute); transition:color var(--d-hover); --rt-accent:var(--c-gold); }
+.recall-tabs > .rt-tab::before{ content:""; position:absolute; left:18%; right:18%; bottom:4px; height:2px; background:var(--rt-accent); transform:scaleX(0); transition:transform var(--d-ui) var(--ease-out); }
+.recall-tabs > .rt-tab::after{ content:""; position:absolute; inset:50% 0 auto; height:var(--hit-min); transform:translateY(-50%); }
+.recall-tabs > .rt-tab[data-c="ayaka"]{ --rt-accent:var(--c-ayaka); } .recall-tabs > .rt-tab[data-c="makoto"]{ --rt-accent:var(--c-makoto); }
+.recall-tabs > .rt-tab[data-c="yukino"]{ --rt-accent:var(--c-yukino); } .recall-tabs > .rt-tab[data-c="shura"]{ --rt-accent:linear-gradient(90deg,var(--c-ayaka),var(--c-makoto),var(--c-yukino)); }
+.recall-tabs > .rt-tab[data-c="trio"]{ --rt-accent:var(--trio-line); }
+@media (hover:hover){ .recall-tabs > .rt-tab:hover{ color:var(--c-cream); } }
+.recall-tabs > .rt-tab.is-on{ color:var(--c-gold-hi); text-shadow:0 0 12px rgba(240,168,94,.4); }
+.recall-tabs > .rt-tab.is-on::before{ transform:scaleX(1); }
+.recall-tabs > .rt-tab[data-c="trio"].is-on{ color:#f3e6ee; text-shadow:0 0 10px rgba(143,179,232,.45),0 0 16px rgba(201,122,138,.4); }
+.recall-tabs > .rt-tab:active{ transform:translateY(1px); color:var(--c-amber); }
+.recall-tabs > .rt-tab:focus-visible{ outline:2px solid var(--c-gold-hi); outline-offset:-6px; }
+.recall-tabs > .rt-tab[hidden],.recall-tabs > .rt-tab.is-disabled{ display:none; }   /* 未解锁的线不渲染（防剧透） */
+
+/* ---- C3) 设置：skipDaily / hFade / unlockAll / cgBreath 复用 .cfg-row.is-toggle .gal-toggle，无需新样式；unlockAll 未通关不渲染（不是灰行） ---- */
+.cfg-row.is-toggle:has([data-testid="cfg-unlockall"]) label::after{ content:"（通关后）"; margin-left:6px; font-size:var(--fs-tiny); color:var(--c-mute); }
+
+/* ---- C4) 快捷菜单「跳到下一场 H」：.qm-btn[data-act="nexth"]（testid qm-nexth）；h_block 内 disabled ---- */
+.qm-btn[data-act="nexth"] .ico{ filter:drop-shadow(0 0 4px rgba(217,154,168,.6)); }
+.qm-btn[data-act="nexth"]:disabled,.qm-btn[data-act="nexth"][aria-disabled="true"],.qm-btn[data-act="nexth"].is-disabled{ opacity:.45; cursor:default; pointer-events:none; }
+.qm-btn.qm-nexth:disabled,.qm-btn.qm-nexth[aria-disabled="true"]{ opacity:.45; color:var(--c-cream); text-shadow:0 1px 2px rgba(0,0,0,.85); }  /* Y-08：.32 在文本框底上看不清 → .45 + 投影 */
+.qm-btn.qm-nexth.is-active::before{ background:linear-gradient(180deg,#e9b3c0,#c47a8c); border-color:#f1d3dc; box-shadow:0 0 14px rgba(217,154,168,.6); }
+.qm-btn[data-act="nexth"]:disabled::before,.qm-btn[data-act="nexth"].is-disabled::before{ background:none; border-color:transparent; }
+
+/* ---- C5) H 文本框半透明 .gal-textbox--hfade（点一下恢复 = 葵去掉该类）；与 --tender 叠加时只淡一次 ---- */
+.gal-textbox.gal-textbox--hfade{ opacity:.35; transition:opacity 600ms var(--ease-std); }
+.gal-textbox.gal-textbox--hfade.gal-textbox--tender{ opacity:.5; }          /* tender 底已变浅 → 只降到 .5，不再双重淡 */
+.gal-textbox.gal-textbox--hfade.is-hidden{ opacity:0; }
+.gal-textbox--hfade ~ .gal-quickmenu{ opacity:.3; }
+
+/* ---- C6) H 进度条：.h-progress > .hp-seg[data-stage=intro|build|climax|after]；当前 .is-on、已过 .is-done；
+        放在 .layer-text 里、紧跟 .gal-textbox 之后（兄弟），位置在画面顶部居中 → 不碰对话框（y≥448）和名牌（y≈419） ---- */
+.h-progress{ position:absolute; top:18px; left:50%; transform:translateX(-50%); display:flex; gap:6px; z-index:2; pointer-events:none;
+  opacity:.75; transition:opacity var(--d-ui) var(--ease-std); }
+.h-progress > .hp-seg{ position:relative; width:64px; height:4px; border-radius:2px; background:rgba(243,217,164,.18); border:none; padding:0; }
+.h-progress > .hp-seg.is-done{ background:rgba(243,217,164,.55); }
+.h-progress > .hp-seg.is-on{ background:var(--c-gold-hi); box-shadow:0 0 8px rgba(251,227,180,.6); }
+.h-progress > .hp-seg[data-stage="climax"].is-on{ background:#f1d3dc; box-shadow:0 0 10px rgba(241,211,220,.7); }
+/* 长按/H 键隐藏 UI 时一起隐藏（对话框 .is-hidden 时兄弟选择器生效；舞台若有 .is-ui-hidden 也生效） */
+.gal-textbox.is-hidden ~ .h-progress,.gal-stage.is-ui-hidden .h-progress,.is-ui-hidden .h-progress{ opacity:0; pointer-events:none; }
+/* 回想里可点跳段：.h-progress.is-recall；每段热区 = --hit-min（手机上 44 CSS px），视觉条不变 */
+.h-progress.is-recall{ pointer-events:auto; }
+.h-progress.is-recall > .hp-seg{ cursor:pointer; width:var(--hit-min); }
+.h-progress.is-recall > .hp-seg::after{ content:""; position:absolute; left:-3px; right:-3px; top:50%; height:var(--hit-min); transform:translateY(-50%); }
+.h-progress.is-recall > .hp-seg:hover{ background:rgba(251,227,180,.8); }
+.h-progress.is-recall > .hp-seg:focus-visible{ outline:2px solid var(--c-gold-hi); outline-offset:6px; }
+/* ▲▲▲ nukige 试点 END ▲▲▲ */
+
+/* ===== 11/04 结衣：标题「设置」→ 右下角齿轮（方案B：7 项×88 放不下） ===== */
+.scr-title .title-menu{ gap:0; }
+.scr-title .title-btn[data-act="config"]{ position:absolute; right:-64px; top:504px; /* = 舞台 x1192–1280, y632–720 */
+  width:var(--hit-min); min-width:0; max-width:none; padding:0; height:var(--hit-min); font-size:0; letter-spacing:0; text-indent:0; }
+.scr-title .title-btn[data-act="config"]::before{ left:22px; right:22px; top:22px; bottom:22px; border-radius:50%; background:rgba(20,12,24,.45); opacity:.8; }
+.scr-title .title-btn[data-act="config"]::after{ content:"⚙"; position:absolute; inset:0; display:grid; place-items:center;
+  font:400 30px/1 sans-serif; color:var(--c-cream); text-shadow:var(--text-shadow); }
+.scr-title .title-btn[data-act="config"] .sub,.scr-title .title-btn[data-act="config"] .lbl::before,.scr-title .title-btn[data-act="config"] .lbl::after{ display:none; }
+.scr-title .title-btn[data-act="config"].is-hover::after{ color:var(--c-gold-hi); }
+.scr-title .title-foot{ right:calc(24px + var(--hit-min)); }
+
+/* ---- Y-08 补：进度段不可跳 disabled（回想里未读段）；.is-ui-hidden 时整条隐藏已在 C6 ---- */
+.h-progress > .hp-seg:disabled{ cursor:default; opacity:.55; }
+.h-progress.is-recall > .hp-seg:disabled{ pointer-events:none; }
+.h-progress.is-recall > .hp-seg:disabled:hover{ background:rgba(243,217,164,.18); }
+.gal-stage.is-ui-hidden .h-progress{ visibility:hidden; }
+
+/* ---- §22.10 标题「试玩：真琴篇」.title-pilot（testid title-pilot；只在有 pm_start 时渲染）——右上角竖挂小签，覆盖 theme.css 占位 ---- */
+/* 葵把它放在 nav.title-menu 里（6 项后、齿轮前）→ 以 nav（舞台 x876 y128，宽 340）为定位基准：舞台 x1128–1216, y0–116 */
+.scr-title .title-pilot{ position:absolute !important; right:0 !important; top:-128px !important; left:auto !important; bottom:auto !important; transform:none; z-index:5; width:88px; height:116px; min-width:0; padding:0; margin:0;
+  appearance:none; border:none !important; background:none !important; box-shadow:none !important; border-radius:0; cursor:pointer; color:#eef4ff; font:600 16px/1.1 var(--font-serif); letter-spacing:.02em; padding-top:6px !important; box-sizing:border-box;
+  writing-mode:vertical-rl; display:flex; align-items:center; justify-content:flex-start; text-shadow:0 1px 3px rgba(0,0,0,.7); }
+.scr-title .title-pilot::before{ content:""; position:absolute; left:16px; right:16px; top:0; bottom:0; z-index:-1;
+  background:linear-gradient(180deg,rgba(40,58,96,.92),rgba(58,86,136,.88)); border:1px solid rgba(143,179,232,.7); border-top:none;
+  clip-path:polygon(0 0,100% 0,100% 100%,50% 88%,0 100%); box-shadow:0 4px 14px rgba(0,0,0,.35); transition:filter var(--d-hover,160ms); }
+@media (hover:hover){ .scr-title .title-pilot:hover::before{ filter:brightness(1.18); } }
+.scr-title .title-pilot:active{ transform:translateY(2px); }
+.scr-title .title-pilot:focus-visible{ outline:2px solid var(--c-makoto); outline-offset:2px; border-radius:4px; }
+/* Y-08：「Next H」图标（之前缺 → 显示为方块）：小心形 + 快进箭头 */
+.ico.ico-nexth,i.ico-nexth{--ico:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.8%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M8%2018.5S2.5%2015%202.5%2010.6A2.9%202.9%200%200%201%208%209.2a2.9%202.9%200%200%201%205.5%201.4C13.5%2015%208%2018.5%208%2018.5z%22%20fill%3D%22%23000%22%2F%3E%3Cpath%20d%3D%22M15.5%207.5%2020.5%2012l-5%204.5%22%2F%3E%3C%2Fsvg%3E");}
